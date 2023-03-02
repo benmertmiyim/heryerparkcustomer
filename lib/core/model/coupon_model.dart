@@ -31,4 +31,8 @@ class CouponModel{
     );
   }
 
+  @override
+  String toString() {
+    return 'CouponModel{id: $id, title: $title, description: $description, code: $code, price: $price, validDate: $validDate, used: $used}';
+  }
 }

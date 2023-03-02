@@ -5,6 +5,7 @@ import 'package:customer/ui/screen/main/notification_screen.dart';
 import 'package:customer/ui/screen/main/profile_screen.dart';
 import 'package:customer/ui/screen/main/qr_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

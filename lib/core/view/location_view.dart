@@ -12,8 +12,9 @@ enum LocationProcess {
 class LocationView with ChangeNotifier implements LocationBase {
   LocationProcess _locationProcess = LocationProcess.idle;
   LocationService locationService = locator<LocationService>();
-  Position? position;
-  bool permission = false;
+  Position? currentPosition;
+  Position? lastPosition;
+  bool? permission;
 
   LocationProcess get locationProcess => _locationProcess;
 
@@ -22,7 +23,7 @@ class LocationView with ChangeNotifier implements LocationBase {
     notifyListeners();
   }
 
-  LocationView(){
+  LocationView() {
     getLastCustomerLocation();
     getCurrentCustomerLocation();
   }
@@ -32,41 +33,46 @@ class LocationView with ChangeNotifier implements LocationBase {
     try {
       locationProcess = LocationProcess.busy;
       permission = await locationService.checkPermission();
+      return permission!;
     } catch (e) {
       debugPrint(
         "LocationView - Exception - Check Permission : ${e.toString()}",
       );
-    }finally{
+    } finally {
       locationProcess = LocationProcess.idle;
     }
-    return permission;
+    return false;
   }
 
   @override
   Future<Position?> getCurrentCustomerLocation() async {
     try {
       await checkPermission();
-      position =  await locationService.getCurrentCustomerLocation();
-      return position;
+      currentPosition = await locationService.getCurrentCustomerLocation();
+
+      return currentPosition;
     } catch (e) {
       debugPrint(
         "LocationView - Exception - Get Current Customer Location : ${e.toString()}",
       );
+    } finally {
+      locationProcess = LocationProcess.idle;
     }
-    return position;
+    return currentPosition;
   }
 
   @override
   Future<Position?> getLastCustomerLocation() async {
     try {
-      position =  await locationService.getLastCustomerLocation();
-      return position;
+      lastPosition = await locationService.getLastCustomerLocation();
+      return lastPosition;
     } catch (e) {
       debugPrint(
         "LocationView - Exception - Get Last Customer Location : ${e.toString()}",
       );
+    } finally {
+      locationProcess = LocationProcess.idle;
     }
-    return position;
+    return lastPosition;
   }
-
 }

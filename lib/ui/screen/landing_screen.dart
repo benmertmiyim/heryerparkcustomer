@@ -1,4 +1,5 @@
 import 'package:customer/core/view/auth_view.dart';
+import 'package:customer/ui/screen/main/payment_screen.dart';
 import 'package:customer/ui/screen/auth/login_screen.dart';
 import 'package:customer/ui/screen/auth/phone_verification_screen.dart';
 import 'package:customer/ui/screen/main/main_screen.dart';
@@ -22,12 +23,18 @@ class LandingScreen extends StatelessWidget {
         return const LoginScreen();
       } else if (authView.authState == AuthState.unauthorized) {
         return const LoginScreen();
-      } else if(authView.authState == AuthState.phone){
+      } else if (authView.authState == AuthState.phone) {
         return const PhoneVerificationScreen();
-      }else {
-        if (authView.approvalParks.isNotEmpty){
-          return RequestScreen(parkHistory: authView.approvalParks.first,);
-        }else{
+      } else {
+        if (authView.paymentParks.isNotEmpty) {
+          return PaymentScreen(
+            parkHistory: authView.paymentParks.first,
+          );
+        } else if (authView.approvalParks.isNotEmpty) {
+          return RequestScreen(
+            parkHistory: authView.approvalParks.first,
+          );
+        } else {
           return const MainScreen();
         }
       }

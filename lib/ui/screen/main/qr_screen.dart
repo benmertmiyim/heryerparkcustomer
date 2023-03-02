@@ -1,4 +1,5 @@
 import 'package:customer/core/view/auth_view.dart';
+import 'package:customer/ui/components/active_park_widget.dart';
 import 'package:customer/ui/components/code_timer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,27 +16,44 @@ class QRScreen extends StatelessWidget {
     if (authView.authProcess == AuthProcess.busy) {
       return const CircularProgressIndicator();
     } else {
-      return Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            QrImage(
-              data: authView.processParks.isNotEmpty ? authView.processParks[0].requestId :"${authView.customer!.code!}-${authView.customer!.uid}",
-              version: QrVersions.auto,
-              foregroundColor: theme.colorScheme.onBackground,
-            ),
-            Text(authView.processParks.isNotEmpty ? authView.processParks[0].requestId :"${authView.customer!.code!}-${authView.customer!.uid}",),
-            authView.processParks.isNotEmpty ? Text("activepark") : const CodeTimerWidget(),
-            const SizedBox(
-              height: 16,
-            ),
-            Text(
-              authView.customer!.nameSurname,
-            ),
-
-          ],
+      return SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              QrImage(
+                data: authView.processParks.isNotEmpty
+                    ? authView.processParks[0].requestId
+                    : "${authView.customer!.code!}-${authView.customer!.uid}",
+                version: QrVersions.auto,
+                foregroundColor: theme.colorScheme.onBackground,
+              ),
+              Text(
+                authView.processParks.isNotEmpty
+                    ? authView.processParks[0].requestId
+                    : "${authView.customer!.code!}-${authView.customer!.uid}",
+                style: TextStyle(
+                  color: Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .color!
+                      .withOpacity(0.5),
+                ),
+              ),
+              Text(
+                authView.customer!.nameSurname,
+                style: theme.textTheme.headline6,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              authView.processParks.isNotEmpty
+                  ? const ActiveParkWidget()
+                  : const CodeTimerWidget(),
+            ],
+          ),
         ),
       );
     }

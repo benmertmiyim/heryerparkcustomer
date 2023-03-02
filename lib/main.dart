@@ -1,4 +1,5 @@
 import 'package:customer/core/view/auth_view.dart';
+import 'package:customer/core/view/card_view.dart';
 import 'package:customer/core/view/location_view.dart';
 import 'package:customer/core/view/notification_view.dart';
 import 'package:customer/core/view/promotion_view.dart';
@@ -6,9 +7,6 @@ import 'package:customer/firebase_options.dart';
 import 'package:customer/l10n/l10n.dart';
 import 'package:customer/locator.dart';
 import 'package:customer/provider/local_provider.dart';
-import 'package:customer/ui/screen/auth/login_screen.dart';
-import 'package:customer/ui/screen/auth/phone_verification_screen.dart';
-import 'package:customer/ui/screen/auth/register_screen.dart';
 import 'package:customer/ui/screen/landing_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -54,18 +52,21 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => LocationView(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => CardView(),
+        ),
       ],
       child: MaterialApp(
         title: "HerYerPark",
         debugShowCheckedModeBanner: false,
         theme: FlexThemeData.light(
-          fontFamily: GoogleFonts.ubuntu().fontFamily,
+          fontFamily: GoogleFonts.roboto().fontFamily,
           scheme: FlexScheme.bahamaBlue,
           appBarElevation: 0.5,
         ),
         darkTheme: FlexThemeData.dark(
           scheme: FlexScheme.bahamaBlue,
-          fontFamily: GoogleFonts.ubuntu().fontFamily,
+          fontFamily: GoogleFonts.roboto().fontFamily,
           appBarElevation: 2,
         ),
         themeMode: ThemeMode.system,

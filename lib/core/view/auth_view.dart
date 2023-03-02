@@ -7,6 +7,7 @@ import 'package:customer/core/model/coupon_model.dart';
 import 'package:customer/core/model/customer_model.dart';
 import 'package:customer/core/model/enum.dart';
 import 'package:customer/core/model/park_history_model.dart';
+import 'package:customer/core/model/rate_model.dart';
 import 'package:customer/core/service/auth_service.dart';
 import 'package:customer/locator.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +31,12 @@ class AuthView with ChangeNotifier implements AuthBase {
   AuthService authService = locator<AuthService>();
   CustomerModel? _customer;
   StreamSubscription? listenerForApprovalOrPayment;
-  String? messageCode;
+  String? messageCode; //TODO: burayı sil
 
   List<ParkHistory> approvalParks = [];
   List<ParkHistory> paymentParks = [];
   List<ParkHistory> processParks = [];
+  List<ParkHistory> parkHistory = [];
 
   CustomerModel? get customer => _customer;
 
@@ -64,6 +66,7 @@ class AuthView with ChangeNotifier implements AuthBase {
       if(res is CustomerModel) {
         _customer = res;
         await generateCode();
+        await getParkHistory(customer!.uid);
         getApprovalOrPaymentOrProcess(customer!.uid);
         if(!customer!.verified!) {
           await sendCode(customer!.phone);
@@ -98,6 +101,7 @@ class AuthView with ChangeNotifier implements AuthBase {
       if (res is CustomerModel) {
         _customer = res;
         await generateCode();
+        await getParkHistory(customer!.uid);
         getApprovalOrPaymentOrProcess(customer!.uid);
         if(!customer!.verified!) {
           await sendCode(customer!.phone);
@@ -149,6 +153,7 @@ class AuthView with ChangeNotifier implements AuthBase {
       if (result is CustomerModel) {
         _customer = result;
         getApprovalOrPaymentOrProcess(customer!.uid);
+        await getParkHistory(customer!.uid);
         await generateCode();
         if(!customer!.verified!) {
           await sendCode(customer!.phone);
@@ -337,8 +342,6 @@ class AuthView with ChangeNotifier implements AuthBase {
 
   }
 
-  
-
   void clearListenerForApprovalOrPayment() {
     paymentParks = [];
     approvalParks = [];
@@ -360,5 +363,99 @@ class AuthView with ChangeNotifier implements AuthBase {
       authProcess = AuthProcess.idle;
     }
 
+  }
+
+  @override
+  Future<Object?> getParkHistory(String customerId) async {
+    try {
+      authProcess = AuthProcess.busy;
+      var res = await authService.getParkHistory(customerId);
+      if(res is List<ParkHistory>) {
+        parkHistory = res;
+      }
+      return res;
+    } catch (e) {
+      debugPrint(
+        "AuthView - Exception - getParkHistory : ${e.toString()}",
+      );
+      return "Something went wrong";
+    } finally {
+      authProcess = AuthProcess.idle;
+    }
+  }
+
+  Future<Object> applyCoupon(String couponCode) async {
+    try {
+      authProcess = AuthProcess.busy;
+      var res = await getCoupons();
+      debugPrint(res.toString());
+      if(res.isNotEmpty) {
+        for (var coupon in res) {
+          if(coupon.code == couponCode) {
+            return coupon;
+          }
+        }
+      }
+
+      return "Coupon not found";
+    } catch (e) {
+      debugPrint(
+        "AuthView - Exception - applyCoupon : ${e.toString()}",
+      );
+      return "Something went wrong";
+    } finally {
+      authProcess = AuthProcess.idle;
+    }
+  }
+
+  @override
+  Future<Object?> getVendor(String vendorId) async {
+    try {
+      authProcess = AuthProcess.busy;
+      var res = await authService.getVendor(vendorId);
+      return res;
+    } catch (e) {
+      debugPrint(
+        "AuthView - Exception - getVendor : ${e.toString()}",
+      );
+      return "Something went wrong";
+    } finally {
+      authProcess = AuthProcess.idle;
+    }
+  }
+
+  @override
+  Future<bool> ratePark(RateModel rateModel) async {
+    try {
+      authProcess = AuthProcess.busy;
+      for (var element in parkHistory) {
+        if(element.requestId == rateModel.processId) {
+          element.rated = true;
+        }
+      }
+      await authService.ratePark(rateModel);
+      return true;
+    } catch (e) {
+      debugPrint(
+        "AuthView - Exception - ratePark : ${e.toString()}",
+      );
+      return false;
+    } finally {
+      authProcess = AuthProcess.idle;
+    }
+
+  }
+
+  @override
+  Future<List> getNearVendor(double latitude, double longitude, double radius, int? limit) async {
+    try {
+      var res = await authService.getNearVendor(latitude, longitude, radius, limit);
+      return res;
+    } catch (e) {
+      debugPrint(
+        "AuthView - Exception - getNearVendor : ${e.toString()}",
+      );
+      return [];
+    }
   }
 }

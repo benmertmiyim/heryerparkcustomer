@@ -6,7 +6,9 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:provider/provider.dart';
 
 class CodeTimerWidget extends StatefulWidget {
-  const CodeTimerWidget({Key? key,}) : super(key: key);
+  const CodeTimerWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CodeTimerWidget> createState() => _CodeTimerWidgetState();
@@ -28,19 +30,37 @@ class _CodeTimerWidgetState extends State<CodeTimerWidget> {
     super.dispose();
   }
 
+
+  @override
+  void activate() {
+    super.activate();
+    controller.start();
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    controller.start();
+  }
+
   @override
   Widget build(BuildContext context) {
-    controller =
-        CountdownTimerController(endTime: authView.customer!.codeTime!.millisecondsSinceEpoch ,);
+    controller = CountdownTimerController(
+      endTime: authView.customer!.codeTime!.millisecondsSinceEpoch,
+    );
     controller.start();
     return CountdownTimer(
       controller: controller,
-      widgetBuilder: (_, CurrentRemainingTime? time)  {
-        if(time == null){
+      widgetBuilder: (_, CurrentRemainingTime? time) {
+        if (time == null) {
           authView.generateCode();
         }
         return Text(
-          '${time?.min ?? ""}${time?.min != null ? ":": ""}${time?.sec ?? 0} sec left for generate new code',
+          '${time?.min ?? ""}${time?.min != null ? ":" : ""}${time?.sec ?? 0} sec left for generate new code',
+          style: TextStyle(
+            color:
+                Theme.of(context).textTheme.titleSmall!.color!.withOpacity(0.5),
+          ),
         );
       },
     );

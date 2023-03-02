@@ -15,11 +15,13 @@ class ParkHistory {
   final String employeeImage;
   final String parkName;
   String? paymentId;
+  bool? rated;
   String? closedReason;
   final List price;
   double? totalMins;
   double? totalPrice;
   StatusEnum status;
+  double? density;
 
   ParkHistory({
     required this.requestTime,
@@ -34,6 +36,8 @@ class ParkHistory {
     required this.parkName,
     required this.price,
     required this.status,
+    required this.rated,
+    this.density,
     this.closedTime,
     this.replyTime,
     this.paymentId,
@@ -42,26 +46,34 @@ class ParkHistory {
     this.closedReason,
   });
 
-
   factory ParkHistory.fromJson(Map<String, dynamic> json) {
     return ParkHistory(
       requestTime: (json["requestTime"] as Timestamp).toDate(),
-      closedTime: json["closedTime"] != null ? (json["closedTime"] as Timestamp).toDate() : null,
-      replyTime: json["replyTime"] != null ? (json["replyTime"] as Timestamp).toDate() : null,
+      closedTime: json["closedTime"] != null
+          ? (json["closedTime"] as Timestamp).toDate()
+          : null,
+      replyTime: json["replyTime"] != null
+          ? (json["replyTime"] as Timestamp).toDate()
+          : null,
       vendorId: json["vendorId"],
+      rated: json["rated"] != null ? json["rated"] : null,
       requestId: json["requestId"],
+      density: json["density"] != null ? json["density"].toDouble() : null,
       customerName: json["customerName"],
       customerImage: json["customerImage"] != null ? json["customerImage"] : "",
       customerId: json["customerId"],
       employeeId: json["employeeId"],
       employeeNameSurname: json["employeeNameSurname"],
-      employeeImage: json["employeeImage"],
+      employeeImage:
+          "https://firebasestorage.googleapis.com/v0/b/heryerpark-ms.appspot.com/o/customerImage%2FeLL2oloCzcYap87ZCMHARzK0Zux2?alt=media&token=7f5cfda3-e9f4-42ee-b317-3f665730572d",
       parkName: json["parkName"],
       paymentId: json["paymentId"] != null ? json["paymentId"] : null,
       closedReason: json["closedReason"] != null ? json["closedReason"] : null,
       price: json["price"] as List,
-      totalMins: json["totalMins"] != null ? json["totalMins"].toDouble() : null,
-      totalPrice: json["totalPrice"] != null ? json["totalPrice"].toDouble() : null,
+      totalMins:
+          json["totalMins"] != null ? json["totalMins"].toDouble() : null,
+      totalPrice:
+          json["totalPrice"] != null ? json["totalPrice"].toDouble() : null,
       status: statusFromString(json["status"]),
     );
   }

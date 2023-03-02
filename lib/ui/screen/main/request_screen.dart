@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:customer/core/model/park_history_model.dart';
+import 'package:customer/core/model/vendor_model.dart';
+import 'package:customer/core/service/auth_service.dart';
 import 'package:customer/core/view/auth_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -37,81 +39,274 @@ class RequestScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(8),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 48,
-                        backgroundImage: CachedNetworkImageProvider(
-                          parkHistory.employeeImage,
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FutureBuilder(
+                    future: AuthService().getVendor(parkHistory.vendorId),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data is VendorModel) {
+                          VendorModel vendor = snapshot.data as VendorModel;
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                parkHistory.parkName,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              const Divider(),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Card(
+                                        color: Colors.green,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: Colors.white,
+                                                size: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge!
+                                                    .fontSize,
+                                              ),
+                                              Text(
+                                                vendor.rating
+                                                    .toStringAsFixed(1),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleLarge!
+                                                    .copyWith(
+                                                      color: Colors.white,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Security: ",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!,
+                                            ),
+                                            Text(
+                                              vendor.security
+                                                  .toStringAsFixed(1),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Icon(
+                                              Icons.star,
+                                              size: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .fontSize,
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .color,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Service Quality: ",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!,
+                                            ),
+                                            Text(
+                                              vendor.serviceQuality
+                                                  .toStringAsFixed(1),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Icon(
+                                              Icons.star,
+                                              size: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .fontSize,
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .color,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Accessibility: ",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!,
+                                            ),
+                                            Text(
+                                              vendor.accessibility
+                                                  .toStringAsFixed(1),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Icon(
+                                              Icons.star,
+                                              size: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .fontSize,
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .color,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
+                            ],
+                          );
+                        } else {
+                          return const Center(
+                            child: Text("No data"),
+                          );
+                        }
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    }),
+              ),
+            ),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Information",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const Divider(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          radius: 32,
+                          backgroundImage: CachedNetworkImageProvider(
+                            parkHistory.employeeImage,
+                          ),
+                          backgroundColor: Colors.transparent,
                         ),
-                        backgroundColor: Colors.transparent,
-                      ),
-                      Text(
-                        parkHistory.employeeNameSurname,
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          parkHistory.parkName,
-                        ),
-                        Text(
-                          "Start Time: ${DateFormat('dd MMM yy kk:mm').format(parkHistory.requestTime)}",
+                        const SizedBox(width: 8,),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Employee: ${parkHistory.employeeNameSurname}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!,
+                            ),
+                            Text(
+                              "Start Time: ${DateFormat('dd MMM yy kk:mm').format(parkHistory.requestTime)}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!,
+                            ),
+                            Text(
+                              "Price Type: Hourly",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!,
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
-            const SizedBox(
-              height: 16,
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "Price List",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    ListView.separated(
+                        shrinkWrap: true,
+                        separatorBuilder: (BuildContext context, int index) =>
+                        const Divider(),
+                        itemBuilder: (BuildContext context, int index) {
+                          if (index == parkHistory.price.length - 1) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    "${parkHistory.price[index]["timeRange"][0]}+ hours"),
+                                Text("${parkHistory.price[index]["price"]} ₺",style: Theme.of(context).textTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold),),
+                              ],
+                            );
+                          }
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  "${parkHistory.price[index]["timeRange"][0]} - ${parkHistory.price[index]["timeRange"][1]} hours"),
+                              Text("${parkHistory.price[index]["price"]} ₺",style: Theme.of(context).textTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold),),
+                            ],
+                          );
+                        },
+                        itemCount: parkHistory.price.length),
+                  ],
+                ),
+              ),
             ),
-            const Text("Price List"),
-            ListView.separated(
-                shrinkWrap: true,
-                separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == parkHistory.price.length - 1) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                            "${parkHistory.price[index]["timeRange"][0]}+ hours"),
-                        Text("${parkHistory.price[index]["price"]} ₺"),
-                      ],
-                    );
-                  }
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                          "${parkHistory.price[index]["timeRange"][0]} - ${parkHistory.price[index]["timeRange"][1]} hours"),
-                      Text("${parkHistory.price[index]["price"]} ₺"),
-                    ],
-                  );
-                },
-                itemCount: parkHistory.price.length),
             const SizedBox(
               height: 16,
             ),

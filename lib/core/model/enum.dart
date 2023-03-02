@@ -1,30 +1,3 @@
-enum PermissionEnum{
-  owner,
-  employee,
-}
-
-String permissionToString(PermissionEnum permission) {
-  switch (permission) {
-    case PermissionEnum.employee:
-      return "Employee";
-    case PermissionEnum.owner:
-      return "Owner";
-    default:
-      return "Undefined";
-  }
-}
-
-PermissionEnum permissionFromString(String permission) {
-  switch (permission) {
-    case "employee":
-      return PermissionEnum.employee;
-    case "owner":
-      return PermissionEnum.owner;
-    default:
-      return PermissionEnum.employee;
-  }
-}
-
 enum StatusEnum{
   process,
   approval,
@@ -69,5 +42,21 @@ StatusEnum statusFromString(String status) {
       return StatusEnum.completed;
     default:
       return StatusEnum.process;
+  }
+}
+
+String calculateDensity(double? density) {
+  if (density == null) {
+    return "No Information";
+  } else if (density >= 4) {
+    return "Idle";
+  } else if (density >= 3) {
+    return "Low";
+  } else if (density >= 2) {
+    return "Medium";
+  } else if (density >= 0) {
+    return "High";
+  } else {
+    return "No Information";
   }
 }

@@ -1,12 +1,15 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:customer/core/view/auth_view.dart';
+import 'package:customer/core/view/card_view.dart';
 import 'package:customer/ui/components/profile_list_tile.dart';
 import 'package:customer/ui/screen/auth/login_screen.dart';
 import 'package:customer/ui/screen/main/campaing_screen.dart';
 import 'package:customer/ui/screen/main/coupon_screen.dart';
+import 'package:customer/ui/screen/main/history_screen.dart';
 import 'package:customer/ui/screen/main/notification_screen.dart';
 import 'package:customer/ui/screen/main/other_screen.dart';
+import 'package:customer/ui/screen/main/payment_methods_screen.dart';
 import 'package:customer/ui/screen/main/settings_screen.dart';
 import 'package:customer/ui/screen/main/support_chat_screen.dart';
 import 'package:flutter/material.dart';
@@ -106,15 +109,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: <Widget>[
                         Text(
                           authView.customer!.nameSurname,
+                            style: theme
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(fontWeight: FontWeight.bold)
                         ),
                         Text(
                           authView.customer!.email,
+                            style: theme
+                                .textTheme
+                                .bodyMedium!
                         ),
                         Text(
                           authView.customer!.phone,
+                            style: theme
+                                .textTheme
+                                .bodyMedium!
                         ),
                         Text(
                           "Membership date: ${DateFormat('dd MMM yy').format(authView.customer!.createdAt!)}",
+                            style: TextStyle(
+                                color: theme.colorScheme.onBackground
+                                    .withOpacity(0.5)),
                         ),
                       ],
                     ),
@@ -135,15 +151,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const ProfileListTile(
                 title: "Payment Methods",
                 icon: MdiIcons.creditCardOutline,
-                onTap: LoginScreen(),
-                subtitle: "Coming soon !",
+                onTap: PaymentMethodsScreen(isFromPayment: false,),
               ),
               const Divider(),
               const ProfileListTile(
                 title: "Park History",
                 icon: MdiIcons.history,
-                onTap: LoginScreen(),
-                subtitle: "Coming soon !",
+                onTap: HistoryScreen(),
               ),
               const Divider(),
               const ProfileListTile(
@@ -263,9 +277,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Icon(MdiIcons.logout,
                           size: 22, color: theme.colorScheme.error),
                       const SizedBox(width: 16),
-                      const Expanded(
+                       Expanded(
                         child: Text(
                           "Logout",
+                          style: TextStyle(
+                            color: theme.colorScheme.error,
+                          ),
                         ),
                       ),
                       Icon(MdiIcons.chevronRight,

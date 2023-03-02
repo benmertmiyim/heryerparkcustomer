@@ -1,6 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:customer/core/model/iyzico/error_model.dart';
+import 'package:customer/core/model/iyzico/get_cards_result_model.dart';
+import 'package:customer/core/model/park_history_model.dart';
+import 'package:customer/core/model/rate_model.dart';
+import 'package:customer/core/model/vendor_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +18,7 @@ class AuthService implements AuthBase {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  String? cardUserKey;
 
   @override
   Future<Object?> getCurrentCustomer() async {
@@ -26,6 +32,7 @@ class AuthService implements AuthBase {
         if (documentSnapshot.exists) {
           Map<String, dynamic> map =
               documentSnapshot.data() as Map<String, dynamic>;
+          cardUserKey = map["cardUserKey"];
           return CustomerModel.fromJson(map);
         } else {
           return "vendorToCustomer";
@@ -293,4 +300,115 @@ class AuthService implements AuthBase {
     }
 
   }
+
+  @override
+  Future<Object?> getParkHistory(String customerId) async {
+    try {
+      QuerySnapshot querySnapshot = await firebaseFirestore
+          .collection("customer/${firebaseAuth.currentUser!.uid}/history").orderBy("requestTime",descending: true).get();
+
+      List<ParkHistory> list = [];
+      for (int i = 0; i < querySnapshot.size; i++) {
+        Map<String, dynamic> historyMap =
+        querySnapshot.docs[i].data() as Map<String, dynamic>;
+        list.add(ParkHistory.fromJson(historyMap),);
+      }
+      return list;
+    } catch (e) {
+      debugPrint(
+        "BannerService - Exception - Get Banners : ${e.toString()}",
+      );
+      return [];
+    }
+  }
+
+  @override
+  Future<Object?> getVendor(String vendorId) async {
+    try{
+      var url = Uri.https(
+          'us-central1-heryerpark-ms.cloudfunctions.net', 'getVendor');
+      var response = await http.post(
+        url,
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: jsonEncode({
+          'vendorId': vendorId,
+        }),
+      );
+      Map<String, dynamic> map = jsonDecode(response.body);
+      debugPrint(map.toString());
+      VendorModel vendorModel = VendorModel.fromJson(map);
+      return vendorModel;
+    }catch(e){
+      debugPrint(
+        "AuthService - Exception - getVendor : ${e.toString()}",
+      );
+      return null;
+    }
+  }
+
+  @override
+  Future<bool> ratePark(RateModel rateModel)async {
+    try{
+      var url = Uri.https(
+          'us-central1-heryerpark-ms.cloudfunctions.net', 'rateVendor');
+      var response = await http.post(
+        url,
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: jsonEncode(rateModel.toJson()),
+      );
+
+      Map<String, dynamic> map = jsonDecode(response.body);
+      debugPrint(map.toString());
+      return true;
+    }catch(e){
+      debugPrint(
+        "AuthService - Exception - ratePark : ${e.toString()}",
+      );
+      return false;
+    }
+  }
+
+  @override
+  Future<List> getNearVendor(double latitude, double longitude, double radius, int? limit) async {
+    try{
+      var url = Uri.https(
+          'us-central1-heryerpark-ms.cloudfunctions.net', 'getNearVendor');
+      var response = await http.post(
+        url,
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: jsonEncode({
+          'latitude': latitude,
+          'longitude': longitude,
+          'radius': radius,
+          'limit': limit,
+        }),
+      );
+      List list = jsonDecode(response.body);
+
+      List<VendorModel> vendorList = [];
+      for(int i = 0; i < list.length; i++){
+        Map<String, dynamic> map = list[i];
+        VendorModel vendorModel = VendorModel.fromJson(map);
+        vendorList.add(vendorModel);
+      }
+      vendorList.sort((a,b) => a.distance!.compareTo(b.distance!));
+      return vendorList;
+    }catch(e){
+      debugPrint(
+        "AuthService - Exception - nearParks : ${e.toString()}",
+      );
+      return [];
+    }
+  }
+  
+  
 }

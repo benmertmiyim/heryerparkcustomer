@@ -2,6 +2,10 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:customer/core/model/coupon_model.dart';
+import 'package:customer/core/model/iyzico/add_card_model.dart';
+import 'package:customer/core/model/iyzico/pay_model.dart';
+import 'package:customer/core/model/park_history_model.dart';
+import 'package:customer/core/model/rate_model.dart';
 
 
 abstract class AuthBase {
@@ -17,5 +21,9 @@ abstract class AuthBase {
   Future<Object?> vendorToCustomer(String email,);
   Future<Object?> generateCode();
   Stream<QuerySnapshot>? getApprovalOrPaymentOrProcess(String customerId);
+  Future<Object?> getParkHistory(String customerId);
   Future<Object?> replyRequest(String vendorId, String customerId, String requestId, bool reply);
+  Future<Object?> getVendor(String vendorId);
+  Future<List> getNearVendor(double latitude, double longitude, double radius, int? limit);
+  Future<bool> ratePark(RateModel rateModel);
 }
