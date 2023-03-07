@@ -6,11 +6,22 @@ import 'package:customer/core/base/auth_base.dart';
 import 'package:customer/core/model/coupon_model.dart';
 import 'package:customer/core/model/customer_model.dart';
 import 'package:customer/core/model/enum.dart';
+import 'package:customer/core/model/iyzico/add_card_model.dart';
+import 'package:customer/core/model/iyzico/add_card_result_model.dart';
+import 'package:customer/core/model/iyzico/card_result_model.dart';
+import 'package:customer/core/model/iyzico/error_model.dart';
+import 'package:customer/core/model/iyzico/get_cards_result_model.dart';
+import 'package:customer/core/model/iyzico/pay_model.dart';
+import 'package:customer/core/model/iyzico/pay_result_model.dart';
 import 'package:customer/core/model/park_history_model.dart';
 import 'package:customer/core/model/rate_model.dart';
+import 'package:customer/core/model/vendor_model.dart';
 import 'package:customer/core/service/auth_service.dart';
 import 'package:customer/locator.dart';
+import 'package:customer/ui/components/marker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:widget_to_marker/widget_to_marker.dart';
 
 enum AuthProcess {
   idle,
@@ -32,6 +43,17 @@ class AuthView with ChangeNotifier implements AuthBase {
   CustomerModel? _customer;
   StreamSubscription? listenerForApprovalOrPayment;
   String? messageCode; //TODO: burayı sil
+  CardResultModel? _selectedCard;
+  GetCardsResultModel? cards;
+  List<VendorModel> nearVendors = [];
+  Set<Marker> markers = {};
+
+  set selectedCard(CardResultModel? value) {
+    _selectedCard = value;
+    notifyListeners();
+  }
+
+  CardResultModel? get selectedCard => _selectedCard;
 
   List<ParkHistory> approvalParks = [];
   List<ParkHistory> paymentParks = [];
@@ -66,6 +88,7 @@ class AuthView with ChangeNotifier implements AuthBase {
       if(res is CustomerModel) {
         _customer = res;
         await generateCode();
+        await getCards();
         await getParkHistory(customer!.uid);
         getApprovalOrPaymentOrProcess(customer!.uid);
         if(!customer!.verified!) {
@@ -101,6 +124,7 @@ class AuthView with ChangeNotifier implements AuthBase {
       if (res is CustomerModel) {
         _customer = res;
         await generateCode();
+        await getCards();
         await getParkHistory(customer!.uid);
         getApprovalOrPaymentOrProcess(customer!.uid);
         if(!customer!.verified!) {
@@ -136,6 +160,7 @@ class AuthView with ChangeNotifier implements AuthBase {
       clearListenerForApprovalOrPayment();
       listenerForApprovalOrPayment!.cancel();
       messageCode = "";
+      cards = null;
     } catch (e) {
       debugPrint(
         "AuthView - Exception - signOut : ${e.toString()}",
@@ -154,13 +179,15 @@ class AuthView with ChangeNotifier implements AuthBase {
         _customer = result;
         getApprovalOrPaymentOrProcess(customer!.uid);
         await getParkHistory(customer!.uid);
-        await generateCode();
+        generateCode();
+        await getCards();
         if(!customer!.verified!) {
           await sendCode(customer!.phone);
           authState = AuthState.phone;
         } else {
           authState = AuthState.authorized;
         }
+
         debugPrint(
           "AuthView - createUserWithEmailAndPassword : $customer",
         );
@@ -413,6 +440,7 @@ class AuthView with ChangeNotifier implements AuthBase {
     try {
       authProcess = AuthProcess.busy;
       var res = await authService.getVendor(vendorId);
+
       return res;
     } catch (e) {
       debugPrint(
@@ -449,13 +477,128 @@ class AuthView with ChangeNotifier implements AuthBase {
   @override
   Future<List> getNearVendor(double latitude, double longitude, double radius, int? limit) async {
     try {
-      var res = await authService.getNearVendor(latitude, longitude, radius, limit);
-      return res;
+      authProcess = AuthProcess.busy;
+      nearVendors = await authService.getNearVendor(latitude, longitude, radius, limit) as List<VendorModel>;
+      markers = {};
+      for (var element in nearVendors) {
+        LatLng latLng = LatLng(element.latitude, element.longitude);
+        markers.add(
+          Marker(
+              markerId: MarkerId(element.vendorId),
+              position: latLng,
+              icon: await MarkerWidget(vendorModel: element).toBitmapDescriptor()),
+        );
+      }
+      return nearVendors;
     } catch (e) {
       debugPrint(
         "AuthView - Exception - getNearVendor : ${e.toString()}",
       );
       return [];
+    }finally {
+      authProcess = AuthProcess.idle;
+    }
+  }
+
+  @override
+  Future<List> getVendorComments(String vendorId, bool detail) async {
+    try {
+      var res = await authService.getVendorComments(vendorId, detail);
+      return res;
+    } catch (e) {
+      debugPrint(
+        "AuthView - Exception - getVendorComments : ${e.toString()}",
+      );
+      return [];
+    }
+  }
+
+  @override
+  Future<Object?> addCard(AddCardModel addCardModel) async {
+    try {
+      authProcess = AuthProcess.busy;
+      var result = await authService.addCard(addCardModel);
+      if(result is AddCardResult){
+        customer!.cardUserKey = result.cardUserKey;
+        getCards();
+        return result;
+      }else if (result is ErrorModel){
+        return result;
+      }else{
+        return null;
+      }
+    } catch (e) {
+      debugPrint(
+        "CardView - Exception - addCard : ${e.toString()}",
+      );
+      return null;
+    }finally{
+      authProcess = AuthProcess.idle;
+    }
+  }
+
+  @override
+  Future<Object?> delCard(String cardToken, String cardUserKey) async {
+    try {
+      if(cardToken == _selectedCard?.cardToken){
+        selectedCard = null;
+      }
+      var result = await authService.delCard(cardToken,cardUserKey);
+      if(result is bool){
+        cards!.cardDetails!.removeWhere((element) => element.cardToken == cardToken);
+        notifyListeners();
+        return result;
+      }else{
+        return result as ErrorModel;
+      }
+    } catch (e) {
+      debugPrint(
+        "CardView - Exception - delCard : ${e.toString()}",
+      );
+      return null;
+    }
+
+  }
+
+  @override
+  Future<Object?> getCards() async {
+    try {
+      authProcess = AuthProcess.busy;
+      var result = await authService.getCards();
+      if(result is GetCardsResultModel){
+        cards = result;
+        return result;
+      }else if (result is ErrorModel){
+        return result;
+      }
+      return null;
+    } catch (e) {
+      debugPrint(
+        "CardView - Exception - getCards : ${e.toString()}",
+      );
+      return null;
+    }finally{
+      authProcess = AuthProcess.idle;
+    }
+  }
+
+  @override
+  Future<Object?> pay(PayModel payModel) async {
+    try {
+      authProcess = AuthProcess.busy;
+      var result = await authService.pay(payModel);
+      if(result is PayResult){
+        return result;
+      }else{
+        return result as ErrorModel;
+      }
+    } catch (e) {
+      debugPrint(
+        "AuthView - Exception - pay : ${e.toString()}",
+      );
+      return null;
+    }finally{
+      authProcess = AuthProcess.idle;
     }
   }
 }

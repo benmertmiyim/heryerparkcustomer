@@ -8,6 +8,7 @@ class RateModel {
   String customerId;
   String vendorId;
   String processId;
+  DateTime? rateDate;
 
   RateModel(
       {required this.security,
@@ -15,18 +16,20 @@ class RateModel {
         required this.accessibility,
         required this.customerId,
         required this.vendorId,
+        this.rateDate,
         required this.processId,
         required this.message});
 
   factory RateModel.fromJson(Map<String, dynamic> json) {
     return RateModel(
-      security: double.parse(json["security"]),
-      serviceQuality: double.parse(json["serviceQuality"]),
-      accessibility: double.parse(json["accessibility"]),
-      message: json["message"],
+      security: json["security"].toDouble(),
+      serviceQuality: json["serviceQuality"].toDouble(),
+      accessibility: json["accessibility"].toDouble(),
+      message: json["comment"],
       customerId: json["customerId"],
       vendorId: json["vendorId"],
-      processId: json["processId"],
+      rateDate: json["commentDate"] != null ? (json["commentDate"] as Timestamp).toDate() : null,
+      processId: json["requestId"],
     );
   }
 

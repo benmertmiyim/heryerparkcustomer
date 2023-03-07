@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:customer/core/view/auth_view.dart';
-import 'package:customer/core/view/card_view.dart';
 import 'package:customer/ui/components/profile_list_tile.dart';
 import 'package:customer/ui/screen/auth/login_screen.dart';
 import 'package:customer/ui/screen/main/campaing_screen.dart';

@@ -1,6 +1,5 @@
 import 'package:customer/core/model/iyzico/card_result_model.dart';
 import 'package:customer/core/view/auth_view.dart';
-import 'package:customer/core/view/card_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +10,7 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CardView cardView = Provider.of<CardView>(context);
+    AuthView authView = Provider.of<AuthView>(context);
 
     return Card(
       shape: const BeveledRectangleBorder(borderRadius: BorderRadius.zero),
@@ -22,11 +21,11 @@ class CardWidget extends StatelessWidget {
             ? "assets/images/mastercard.png"
             : "assets/images/visacard.png",height: 32,),
         title: Text(cardResultModel.cardAlias),
-        subtitle: Text("${cardResultModel.binNumber}****${cardResultModel.lastFourDigits}"),
+        subtitle: Text("${"${cardResultModel.binNumber.substring(0,4)} ${cardResultModel.binNumber.substring(4,8)}"} **** ${cardResultModel.lastFourDigits}"),
         trailing: IconButton(
           icon: const Icon(Icons.delete),
           onPressed: () {
-            //cardView.delCard(cardResultModel.cardToken);
+            authView.delCard(cardResultModel.cardToken, authView.customer!.cardUserKey!);
           },
         ),
       ),

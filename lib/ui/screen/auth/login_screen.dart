@@ -22,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       body: Form(
         key: formKey,
@@ -34,7 +35,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 32),
                     child: Center(
-                      child: Text("HerYerPark"),
+                      child: Text.rich(
+                        TextSpan(children: [
+                          TextSpan(
+                            text: "HerYer",
+                            style: TextStyle(
+                              fontSize: theme.textTheme.titleLarge!.fontSize,
+                                color: theme.colorScheme.onPrimary,
+                                fontStyle: FontStyle.italic),
+                          ),
+                          TextSpan(
+                            text: "Park",
+                            style: TextStyle(
+                                fontSize: theme.textTheme.titleLarge!.fontSize,
+                                color: theme.colorScheme.secondary,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ]),
+                      ),
                     ),
                   ),
                   Column(
@@ -52,7 +71,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
-
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(

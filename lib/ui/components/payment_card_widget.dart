@@ -1,5 +1,4 @@
 import 'package:customer/core/model/iyzico/card_result_model.dart';
-import 'package:customer/core/view/card_view.dart';
 import 'package:customer/ui/screen/main/payment_methods_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +15,7 @@ class PaymentCardWidget extends StatelessWidget {
           ? "assets/images/mastercard.png"
           : "assets/images/visacard.png",height: 32,),
       title: Text(cardResultModel.cardAlias),
-      subtitle: Text("${cardResultModel.binNumber}****${cardResultModel.lastFourDigits}"),
+      subtitle: Text("${"${cardResultModel.binNumber.substring(0,3)} ${cardResultModel.binNumber.substring(3,7)}"} **** ${cardResultModel.lastFourDigits}"),
       trailing: TextButton(
         child: const Text("Change"),
         onPressed: () {

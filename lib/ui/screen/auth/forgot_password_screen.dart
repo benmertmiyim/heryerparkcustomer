@@ -21,6 +21,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -41,7 +42,25 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 32),
                     child: Center(
-                      child: Text("HerYerPark"),
+                      child: Text.rich(
+                        TextSpan(children: [
+                          TextSpan(
+                            text: "HerYer",
+                            style: TextStyle(
+                                fontSize: theme.textTheme.titleLarge!.fontSize,
+                                color: theme.colorScheme.onPrimary,
+                                fontStyle: FontStyle.italic),
+                          ),
+                          TextSpan(
+                            text: "Park",
+                            style: TextStyle(
+                                fontSize: theme.textTheme.titleLarge!.fontSize,
+                                color: theme.colorScheme.secondary,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ]),
+                      ),
                     ),
                   ),
                   Column(

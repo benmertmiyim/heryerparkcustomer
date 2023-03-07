@@ -60,3 +60,15 @@ String calculateDensity(double? density) {
     return "No Information";
   }
 }
+
+enum CardType {
+  Master,
+  Visa,
+  Verve,
+  Discover,
+  AmericanExpress,
+  DinersClub,
+  Jcb,
+  Others,
+  Invalid
+}

@@ -19,7 +19,6 @@ class _RateScreenState extends State<RateScreen> {
   double security = 5;
   double serviceQuality = 5;
   double accessibility = 5;
-
   final myController = TextEditingController();
 
   @override
@@ -304,7 +303,7 @@ class _RateScreenState extends State<RateScreen> {
                         keyboardType: TextInputType.multiline,
                         minLines: 5,
                         maxLines: null,
-                        maxLength: 350,
+                        maxLength: 250,
                         autofocus: false,
                         decoration: const InputDecoration(
                           hintText: 'You can comment here',
@@ -312,11 +311,11 @@ class _RateScreenState extends State<RateScreen> {
                           isDense: true,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Colors.transparent), //<-- SEE HERE
+                                color: Colors.transparent),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                                color: Colors.transparent), //<-- SEE HERE
+                                color: Colors.transparent),
                           ),
                         ),
                       ),

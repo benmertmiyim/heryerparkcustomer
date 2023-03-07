@@ -1,5 +1,4 @@
 import 'package:customer/core/view/auth_view.dart';
-import 'package:customer/core/view/card_view.dart';
 import 'package:customer/core/view/location_view.dart';
 import 'package:customer/core/view/notification_view.dart';
 import 'package:customer/core/view/promotion_view.dart';
@@ -51,9 +50,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => LocationView(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => CardView(),
         ),
       ],
       child: MaterialApp(

@@ -4,7 +4,6 @@ import 'package:customer/core/model/iyzico/error_model.dart';
 import 'package:customer/core/model/iyzico/pay_model.dart';
 import 'package:customer/core/model/park_history_model.dart';
 import 'package:customer/core/view/auth_view.dart';
-import 'package:customer/core/view/card_view.dart';
 import 'package:customer/ui/components/payment_card_widget.dart';
 import 'package:customer/ui/screen/main/payment_methods_screen.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     AuthView authView = Provider.of<AuthView>(context);
-    CardView cardView = Provider.of<CardView>(context);
 
     price = selectedCoupon != null
         ? (widget.parkHistory.totalPrice! - selectedCoupon!.price < 0
@@ -328,11 +326,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const Divider(),
-                      cardView.selectedCard != null
+                      authView.selectedCard != null
                           ? Column(
                               children: [
                                 PaymentCardWidget(
-                                    cardResultModel: cardView.selectedCard!),
+                                    cardResultModel: authView.selectedCard!),
                                 const Divider(),
                                 Row(
                                   children: [
@@ -424,91 +422,84 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           const SizedBox(
                             width: 4,
                           ),
-                          authView.authProcess == AuthProcess.idle
-                              ? (selectedCoupon == null
-                                  ? Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                        onPressed: () {
-                                          if (couponEditController
-                                              .text.isNotEmpty) {
-                                            authView
-                                                .applyCoupon(
-                                                    couponEditController.text)
-                                                .then((value) {
-                                              if (value is String) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      value,
-                                                    ),
-                                                    behavior: SnackBarBehavior
-                                                        .floating,
-                                                  ),
-                                                );
-                                              } else {
-                                                CouponModel coupon = value as CouponModel;
-                                                if(coupon.price >= price){
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                        "This coupon is not valid for this amount",
-                                                          ),
-                                                      behavior: SnackBarBehavior
-                                                          .floating,
-                                                    ),
-                                                  );
-                                                }else{
-                                                  setState(() {
-                                                    selectedCoupon = coupon;
-                                                  });
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                          "Coupon applied successfully"),
-                                                      behavior: SnackBarBehavior
-                                                          .floating,
-                                                    ),
-                                                  );
-                                                }
-                                              }
-                                            });
-                                          } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                  "Please enter the code.",
-                                                ),
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                              ),
-                                            );
-                                          }
-                                        },
-                                        child: const Text("Apply"),
+                          selectedCoupon == null
+                              ? Expanded(
+                            flex: 1,
+                            child: TextButton(
+                              onPressed: () {
+                                if (couponEditController
+                                    .text.isNotEmpty) {
+                                  authView
+                                      .applyCoupon(
+                                      couponEditController.text)
+                                      .then((value) {
+                                    if (value is String) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            value,
+                                          ),
+                                          behavior: SnackBarBehavior
+                                              .floating,
+                                        ),
+                                      );
+                                    } else {
+                                      CouponModel coupon = value as CouponModel;
+                                      if(coupon.price >= price){
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "This coupon is not valid for this amount",
+                                            ),
+                                            behavior: SnackBarBehavior
+                                                .floating,
+                                          ),
+                                        );
+                                      }else{
+                                        setState(() {
+                                          selectedCoupon = coupon;
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                                "Coupon applied successfully"),
+                                            behavior: SnackBarBehavior
+                                                .floating,
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  });
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        "Please enter the code.",
                                       ),
-                                    )
-                                  : Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            selectedCoupon = null;
-                                          });
-                                        },
-                                        child: const Text("Remove"),
-                                      ),
-                                    ))
-                              : const Expanded(
-                                  flex: 1,
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                ),
+                                      behavior:
+                                      SnackBarBehavior.floating,
+                                    ),
+                                  );
+                                }
+                              },
+                              child: const Text("Apply"),
+                            ),
+                          )
+                              : Expanded(
+                            flex: 1,
+                            child: TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedCoupon = null;
+                                });
+                              },
+                              child: const Text("Remove"),
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -560,19 +551,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                 ),
               ),
-              cardView.cardProcess == CardProcess.idle
+              authView.authProcess == AuthProcess.idle
                   ? SizedBox(
                       width: double.maxFinite,
                       child: ElevatedButton(
                         onPressed: () async {
-                          if (cardView.selectedCard != null) {
+                          if (authView.selectedCard != null) {
                             PayModel payModel = PayModel(
                                 requestId: widget.parkHistory.requestId,
                                 vendorId: widget.parkHistory.vendorId,
                                 price: price,
                                 density: density,
                                 cardUserKey: authView.customer!.cardUserKey!,
-                                cardToken: cardView.selectedCard!.cardToken,
+                                cardToken: authView.selectedCard!.cardToken,
                                 uid: authView.customer!.uid,
                                 name: authView.customer!.nameSurname,
                                 surname: authView.customer!.nameSurname,
@@ -586,7 +577,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 country: "Turkey",
                             );
 
-                                await cardView.pay(payModel).then((value) {
+                                await authView.pay(payModel).then((value) {
                               if (value is ErrorModel) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

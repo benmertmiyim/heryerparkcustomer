@@ -26,4 +26,9 @@ abstract class AuthBase {
   Future<Object?> getVendor(String vendorId);
   Future<List> getNearVendor(double latitude, double longitude, double radius, int? limit);
   Future<bool> ratePark(RateModel rateModel);
+  Future<List> getVendorComments(String vendorId, bool detail);
+  Future<Object?> getCards();
+  Future<Object?> pay(PayModel payModel);
+  Future<Object?> addCard(AddCardModel addCardModel);
+  Future<Object?> delCard(String cardToken, String cardUserKey);
 }

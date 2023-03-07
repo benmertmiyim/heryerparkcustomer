@@ -1,10 +1,8 @@
 import 'package:customer/core/service/auth_service.dart';
-import 'package:customer/core/service/card_service.dart';
 import 'package:customer/core/service/location_service.dart';
 import 'package:customer/core/service/notification_service.dart';
 import 'package:customer/core/service/promotion_service.dart';
 import 'package:customer/core/view/auth_view.dart';
-import 'package:customer/core/view/card_view.dart';
 import 'package:customer/core/view/location_view.dart';
 import 'package:customer/core/view/notification_view.dart';
 import 'package:customer/core/view/promotion_view.dart';
@@ -21,6 +19,4 @@ void setUpLocator() {
   locator.registerLazySingleton(() => PromotionView());
   locator.registerLazySingleton(() => LocationService());
   locator.registerLazySingleton(() => LocationView());
-  locator.registerLazySingleton(() => CardView());
-  locator.registerLazySingleton(() => CardService());
 }

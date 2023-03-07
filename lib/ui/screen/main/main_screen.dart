@@ -1,6 +1,7 @@
 import 'package:customer/l10n/l10n.dart';
 import 'package:customer/provider/local_provider.dart';
 import 'package:customer/ui/screen/main/home_screen.dart';
+import 'package:customer/ui/screen/main/map_screen.dart';
 import 'package:customer/ui/screen/main/notification_screen.dart';
 import 'package:customer/ui/screen/main/profile_screen.dart';
 import 'package:customer/ui/screen/main/qr_screen.dart';
@@ -22,14 +23,10 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
-    //HomeScreen(),
-    //MapScreen(),
-    //QRScreen(),
-    //ProfileScreen(),
-    HomeScreen(),
-    Container(),
-    QRScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+    const MapScreen(),
+    const QRScreen(),
+    const ProfileScreen(),
   ];
 
   @override

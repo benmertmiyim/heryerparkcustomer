@@ -1,6 +1,7 @@
 import 'package:customer/core/model/iyzico/get_cards_result_model.dart';
-import 'package:customer/core/view/card_view.dart';
+import 'package:customer/core/view/auth_view.dart';
 import 'package:customer/ui/components/card_widget.dart';
+import 'package:customer/ui/screen/main/add_credit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,11 +12,11 @@ class PaymentMethodsScreen extends StatelessWidget {
       : super(key: key);
 
   cardWidget(BuildContext context, GetCardsResultModel getCardsResultModel,
-      int i, CardView cardView) {
+      int i, AuthView authView) {
     if (isFromPayment) {
       return InkWell(
         onTap: () {
-          cardView.selectedCard = getCardsResultModel.cardDetails![i];
+          authView.selectedCard = getCardsResultModel.cardDetails![i];
           Navigator.pop(context);
         },
         child: CardWidget(cardResultModel: getCardsResultModel.cardDetails![i]),
@@ -28,7 +29,7 @@ class PaymentMethodsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Brightness brightness = MediaQuery.of(context).platformBrightness;
-    CardView cardView = Provider.of<CardView>(context,);
+    AuthView authView = Provider.of<AuthView>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,56 +38,42 @@ class PaymentMethodsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //Navigator.push(
-          //  context,
-          //  MaterialPageRoute(
-          //    builder: (context) => const AddCreditCardScreen(),
-          //  ),
-          //);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddCreditCard(),
+            ),
+          );
         },
         child: const Icon(Icons.add),
       ),
-      body: FutureBuilder(
-        future: cardView.getCards(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data is GetCardsResultModel) {
-              GetCardsResultModel cardResultModel =
-                  snapshot.data as GetCardsResultModel;
-
-              if (cardResultModel.cardDetails!.isNotEmpty) {
-                return Column(
-                  children: [
-                    ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: cardResultModel.cardDetails!.length,
-                        itemBuilder: (BuildContext context, int i) {
-                          return cardWidget(
-                              context, cardResultModel, i, cardView);
-                        }),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Image.asset(
-                      brightness == Brightness.dark
-                          ? "assets/images/iyzico_white.png"
-                          : "assets/images/iyzico_colored.png",
-                      width: MediaQuery.of(context).size.width / 3,
-                    ),
-                  ],
-                );
-              }
-            }
-
-            return const Center(
-              child: Text("Kart yok"),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      body: Column(
+        children: [
+          authView.authProcess == AuthProcess.idle
+              ? (authView.cards != null
+                  ? ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: authView.cards!.cardDetails!.length,
+                      itemBuilder: (BuildContext context, int i) {
+                        return cardWidget(
+                            context, authView.cards!, i, authView);
+                      })
+                  : const Center(
+                      child: Text("Kart yok"),
+                    ))
+              : const Center(
+                  child: CircularProgressIndicator(),
+                ),
+          const SizedBox(
+            height: 16,
+          ),
+          Image.asset(
+            brightness == Brightness.dark
+                ? "assets/images/iyzico_white.png"
+                : "assets/images/iyzico_colored.png",
+            width: MediaQuery.of(context).size.width / 3,
+          ),
+        ],
       ),
     );
   }
