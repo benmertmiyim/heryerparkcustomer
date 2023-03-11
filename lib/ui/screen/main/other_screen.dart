@@ -44,19 +44,19 @@ class _OtherScreenState extends State<OtherScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Other"),
+        title: Text(AppLocalizations.of(context).profile_screen_other),
       ),
       body: ListView(
-        padding: const EdgeInsets.only(right: 16,left: 16, top: 16),
+        padding: EdgeInsets.only(right: 16,left: 16, top: 16),
         children: <Widget>[
           ProfileListTile(
-            title: "Privacy And Security",
+            title: AppLocalizations.of(context).other_screen_privacysecurity,
             icon: MdiIcons.lockOutline,
             onTap: Container(),
           ),
           const Divider(),
           ProfileListTile(
-            title: "About",
+            title: AppLocalizations.of(context).other_screen_about,
             icon: MdiIcons.helpCircleOutline,
             onTap: Container(),
           ),

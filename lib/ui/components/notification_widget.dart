@@ -3,6 +3,7 @@ import 'package:customer/core/model/notification_model.dart';
 import 'package:customer/core/view/notification_view.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotificationWidget extends StatefulWidget {
   final NotificationModel notificationModel;
@@ -23,11 +24,11 @@ class _NotificationWidgetState extends State<NotificationWidget> {
   Widget build(BuildContext context) {
     return Dismissible(
       background: Row(
-        children: const <Widget>[
+        children:  <Widget>[
           Icon(
             Icons.delete_outline,
           ),
-          Text("Delete"),
+          Text(AppLocalizations.of(context).notification_delete),
         ],
       ),
       onDismissed: (direction) {
@@ -35,8 +36,8 @@ class _NotificationWidgetState extends State<NotificationWidget> {
             .deleteNotification(widget.notificationModel.id);
         ScaffoldMessenger.of(context)
             .showSnackBar(
-          const SnackBar(
-            content: Text("Notification deleted",),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).notification_deleted,),
             behavior: SnackBarBehavior.floating,
           ),
         );

@@ -7,6 +7,7 @@ import 'package:customer/ui/components/near_park_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NearVendorListScreen extends StatelessWidget {
   const NearVendorListScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class NearVendorListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Near Vendor List"),
+        title: Text(AppLocalizations.of(context).near_vendor_list_screen),
         actions: [
           IconButton(onPressed: (){}, icon: const Icon(MdiIcons.filterVariant))
         ],
@@ -51,8 +52,8 @@ class NearVendorListScreen extends StatelessWidget {
                 return Container();
               }
             } else {
-              return const Center(
-                child: Text("No Data"),
+              return Center(
+                child: Text(AppLocalizations.of(context).near_vendor_list_screen_no),
               );
             }
           }),

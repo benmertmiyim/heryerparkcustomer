@@ -1,6 +1,7 @@
 import 'package:customer/core/view/auth_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VendorToCustomerWidget extends StatelessWidget {
   final String email;
@@ -39,12 +40,12 @@ class VendorToCustomerWidget extends StatelessWidget {
           children: <Widget>[
             Center(
               child: Text(
-                "Convert Your Account",
+                AppLocalizations.of(context).vendor_to_customer_convert,
               ),
             ),
             const Divider(),
             Text(
-              "You have already a vendor account. Do you want to use this account for customer app ?",
+              AppLocalizations.of(context).vendor_to_customer_youhavealready,
             ),
             authView.authProcess == AuthProcess.idle
                 ? Container(
@@ -58,7 +59,7 @@ class VendorToCustomerWidget extends StatelessWidget {
                             Navigator.pop(context);
                           },
                           child: Text(
-                            "Decline",
+                            AppLocalizations.of(context).vendor_to_customer_decline,
                             ),
                         ),
                         ElevatedButton(
@@ -67,7 +68,7 @@ class VendorToCustomerWidget extends StatelessWidget {
                                 .vendorToCustomer(email)
                                 .then((value) {
                               String message =
-                                  "Converting to customer is successful.";
+                                  AppLocalizations.of(context).vendor_to_customer_converting_to_customer_is_successful;
                               if (value is String) {
                                 message = value;
                               }
@@ -84,7 +85,7 @@ class VendorToCustomerWidget extends StatelessWidget {
                             });
                           },
                           child: Text(
-                            "Accept",
+                            AppLocalizations.of(context).request_screen_accept,
                             ),
                         ),
                       ],

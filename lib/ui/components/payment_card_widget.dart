@@ -2,6 +2,7 @@ import 'package:customer/core/model/iyzico/card_result_model.dart';
 import 'package:customer/ui/screen/main/payment_methods_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaymentCardWidget extends StatelessWidget {
   final CardResultModel cardResultModel;
@@ -17,7 +18,7 @@ class PaymentCardWidget extends StatelessWidget {
       title: Text(cardResultModel.cardAlias),
       subtitle: Text("${"${cardResultModel.binNumber.substring(0,3)} ${cardResultModel.binNumber.substring(3,7)}"} **** ${cardResultModel.lastFourDigits}"),
       trailing: TextButton(
-        child: const Text("Change"),
+        child: Text(AppLocalizations.of(context).payment_card_widget_change),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (c) => const PaymentMethodsScreen(isFromPayment: true),),);

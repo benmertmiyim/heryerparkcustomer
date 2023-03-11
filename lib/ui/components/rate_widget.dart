@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RateWidget extends StatelessWidget {
   const RateWidget({Key? key}) : super(key: key);
@@ -26,13 +27,13 @@ class RateWidget extends StatelessWidget {
       if(ratePark != null){
         return Card(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Don't forget to rate park",
+                  AppLocalizations.of(context).rate_widget_forget,
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!,
@@ -77,7 +78,7 @@ class RateWidget extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const [
+                        children: [
                           Icon(
                             MdiIcons.star,
                             size: 16,
@@ -85,7 +86,7 @@ class RateWidget extends StatelessWidget {
                           SizedBox(
                             width: 4,
                           ),
-                          Text("Rate Now"),
+                          Text(AppLocalizations.of(context).rate_screen_send),
                         ],
                       ),
                     )                  ],

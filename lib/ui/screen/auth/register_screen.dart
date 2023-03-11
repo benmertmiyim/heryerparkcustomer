@@ -4,6 +4,7 @@ import 'package:customer/extensions/phone_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -72,10 +73,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter email';
+                            return AppLocalizations.of(context).login_screen_enter_email;
                           } else {
                             if (!value.contains("@") || !value.contains(".")) {
-                              return "Please enter an email";
+                              return AppLocalizations.of(context).login_screen_enter_email;
                             } else {
                               email = value;
                             }
@@ -86,8 +87,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
-                          hintText: "example@example.com",
-                          label: const Text("Email address"),
+                          hintText: AppLocalizations.of(context).login_screen_example_mail,
+                          label: Text(AppLocalizations.of(context).login_screen_email_adress),
 
                           border: const OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -119,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter name and surname';
+                            return AppLocalizations.of(context).login_screen_please_enter_name_surname;
                           }
                           nameSurname = value;
                           return null;
@@ -128,8 +129,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
-                          hintText: "Mert Dönmez",
-                          label: const Text("Name Surname"),
+                          hintText: AppLocalizations.of(context).login_screen_example_name,
+                          label: Text(AppLocalizations.of(context).login_screen_name_surname),
 
                           border: const OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -161,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter password';
+                            return AppLocalizations.of(context).login_screen_password_warning;
                           } else {
                             password = value;
                           }
@@ -173,7 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                         decoration: InputDecoration(
 
-                          label: Text("Password"),
+                          label: Text(AppLocalizations.of(context).login_screen_password),
                           border: const OutlineInputBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(8.0),
@@ -218,10 +219,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter again same password';
+                            return AppLocalizations.of(context).login_screen_same_password;
                           } else {
                             if (password != value) {
-                              return 'Please enter same password';
+                              return AppLocalizations.of(context).login_screen_please_enter_same_password;
                             }
                           }
                           return null;
@@ -231,7 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         textInputAction: TextInputAction.next,
 
                         decoration: InputDecoration(
-                          label: const Text("Password (Again)"),
+                          label: Text(AppLocalizations.of(context).login_screen_password_again),
 
                           border: const OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -279,7 +280,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (value == null ||
                               value.isEmpty ||
                               value.length < 17) {
-                            return 'Please enter phone number';
+                            return AppLocalizations.of(context).login_screen_enter_phone;
                           } else {
                             phone = value;
                           }
@@ -289,9 +290,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         MaskedTextController(mask: '+90 --- --- -- --'),
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.done,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           hintText: "+90",
-                          label: Text("Phone"),
+                          label: Text(AppLocalizations.of(context).login_screen_phone),
 
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -348,7 +349,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   }
                                 },
                                 child: Text(
-                                  "Register",
+                                  AppLocalizations.of(context).login_screen_register,
                                 ),
                               ),
                             );

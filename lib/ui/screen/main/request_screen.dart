@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class RequestScreen extends StatelessWidget {
   final ParkHistory parkHistory;
 
@@ -104,7 +104,7 @@ class RequestScreen extends StatelessWidget {
                                         Row(
                                           children: [
                                             Text(
-                                              "Security: ",
+                                              "${AppLocalizations.of(context).rate_screen_security}: ",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyMedium!,
@@ -135,7 +135,7 @@ class RequestScreen extends StatelessWidget {
                                         Row(
                                           children: [
                                             Text(
-                                              "Service Quality: ",
+                                              "${AppLocalizations.of(context).rate_screen_service_quality}: ",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyMedium!,
@@ -166,7 +166,7 @@ class RequestScreen extends StatelessWidget {
                                         Row(
                                           children: [
                                             Text(
-                                              "Accessibility: ",
+                                              "${AppLocalizations.of(context).rate_screen_accessibility}: ",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyMedium!,
@@ -200,8 +200,8 @@ class RequestScreen extends StatelessWidget {
                             ],
                           );
                         } else {
-                          return const Center(
-                            child: Text("No data"),
+                          return Center(
+                            child: Text(AppLocalizations.of(context).near_vendor_list_screen_no),
                           );
                         }
                       } else {
@@ -220,7 +220,7 @@ class RequestScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Information",
+                      AppLocalizations.of(context).request_screen_info,
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
@@ -244,19 +244,19 @@ class RequestScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Employee: ${parkHistory.employeeNameSurname}",
+                              "${AppLocalizations.of(context).request_screen_employee} ${parkHistory.employeeNameSurname}",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!,
                             ),
                             Text(
-                              "Start Time: ${DateFormat('dd MMM yy kk:mm').format(parkHistory.requestTime)}",
+                              "${AppLocalizations.of(context).request_screen_start_time} ${DateFormat('dd MMM yy kk:mm').format(parkHistory.requestTime)}",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!,
                             ),
                             Text(
-                              "Price Type: Hourly",
+                              AppLocalizations.of(context).request_screen_price_type_hoursly,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!,
@@ -275,7 +275,7 @@ class RequestScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Price List",
+                      AppLocalizations.of(context).payment_screen_price_list,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     ListView.separated(
@@ -288,7 +288,7 @@ class RequestScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                    "${parkHistory.price[index]["timeRange"][0]}+ hours"),
+                                    "${parkHistory.price[index]["timeRange"][0]}+ ${AppLocalizations.of(context).payment_screen_hours}"),
                                 Text("${parkHistory.price[index]["price"]} ₺",style: Theme.of(context).textTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold),),
                               ],
                             );
@@ -297,7 +297,7 @@ class RequestScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                  "${parkHistory.price[index]["timeRange"][0]} - ${parkHistory.price[index]["timeRange"][1]} hours"),
+                                  "${parkHistory.price[index]["timeRange"][0]} - ${parkHistory.price[index]["timeRange"][1]} ${AppLocalizations.of(context).payment_screen_hours}"),
                               Text("${parkHistory.price[index]["price"]} ₺",style: Theme.of(context).textTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold),),
                             ],
                           );
@@ -350,7 +350,7 @@ class RequestScreen extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: theme.colorScheme.primary),
-                          child: const Text("Accept"),
+                          child: Text(AppLocalizations.of(context).request_screen_accept),
                         ),
                       ),
                       SizedBox(
@@ -389,7 +389,7 @@ class RequestScreen extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: theme.colorScheme.error),
-                          child: const Text("Rejection"),
+                          child: Text(AppLocalizations.of(context).request_screen_rejection),
                         ),
                       )
                     ],

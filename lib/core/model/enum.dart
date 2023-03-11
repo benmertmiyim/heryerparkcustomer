@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 enum StatusEnum{
+
   process,
   approval,
   denied,
@@ -7,22 +10,22 @@ enum StatusEnum{
   cancelled,
 }
 
-String statusToString(StatusEnum status) {
+String statusToString(StatusEnum status,BuildContext context) {
   switch (status) {
     case StatusEnum.process:
-      return "Process";
+      return AppLocalizations.of(context).enum_process;
     case StatusEnum.approval:
-      return "Approval";
+      return AppLocalizations.of(context).enum_approval;
     case StatusEnum.denied:
-      return "Denied";
+      return AppLocalizations.of(context).enum_denied;
     case StatusEnum.payment:
-      return "Payment";
+      return AppLocalizations.of(context).enum_payment;
     case StatusEnum.completed:
-      return "Completed";
+      return AppLocalizations.of(context).enum_completed;
     case StatusEnum.cancelled:
-      return "Cancelled";
+      return AppLocalizations.of(context).enum_cancelled;
     default:
-      return "Undefined";
+      return AppLocalizations.of(context).enum_undefined;
   }
 }
 
@@ -45,19 +48,19 @@ StatusEnum statusFromString(String status) {
   }
 }
 
-String calculateDensity(double? density) {
+String calculateDensity(double? density,BuildContext context) {
   if (density == null) {
-    return "No Information";
+    return AppLocalizations.of(context).enum_no_info;
   } else if (density >= 4) {
-    return "Idle";
+    return AppLocalizations.of(context).enum_idle;
   } else if (density >= 3) {
-    return "Low";
+    return AppLocalizations.of(context).enum_low;
   } else if (density >= 2) {
-    return "Medium";
+    return AppLocalizations.of(context).enum_medium;
   } else if (density >= 0) {
-    return "High";
+    return AppLocalizations.of(context).enum_high;
   } else {
-    return "No Information";
+    return AppLocalizations.of(context).enum_no_info;
   }
 }
 

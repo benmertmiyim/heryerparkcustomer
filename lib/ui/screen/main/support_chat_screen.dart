@@ -2,6 +2,8 @@ import 'package:customer/core/view/auth_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tawk/flutter_tawk.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SupportChatScreen extends StatelessWidget {
   const SupportChatScreen({Key? key}) : super(key: key);
 
@@ -10,7 +12,7 @@ class SupportChatScreen extends StatelessWidget {
     AuthView authView = Provider.of<AuthView>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Online Support'),
+        title: Text(AppLocalizations.of(context).profile_screen_sup),
       ),
       body: SafeArea(
         child: Tawk(

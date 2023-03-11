@@ -11,6 +11,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaymentScreen extends StatefulWidget {
   final ParkHistory parkHistory;
@@ -115,7 +116,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "Employee Name",
+                                (AppLocalizations.of(context).payment_screen_employee),
                                 style: TextStyle(
                                   color: Theme.of(context)
                                       .textTheme
@@ -142,7 +143,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Total Price",
+                                    (AppLocalizations.of(context).payment_screen_total_price),
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .textTheme
@@ -161,7 +162,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Total Duration",
+                                    (AppLocalizations.of(context).payment_screen_total_duration),
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .textTheme
@@ -171,7 +172,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),
                                   ),
                                   Text(
-                                    "${widget.parkHistory.totalMins!.toStringAsFixed(0)} mins",
+                                    "${widget.parkHistory.totalMins!.toStringAsFixed(0)} ${AppLocalizations.of(context).payment_screen_total_mins}",
                                     style: const TextStyle(fontSize: 16),
                                   ),
                                 ],
@@ -182,7 +183,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                       const Divider(),
                       Text(
-                        "Price List",
+                        (AppLocalizations.of(context).payment_screen_price_list),
                         style: Theme.of(context)
                             .textTheme
                             .titleSmall!
@@ -204,7 +205,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                      "${widget.parkHistory.price[index]["timeRange"][0]}+ hours"),
+                                      "${widget.parkHistory.price[index]["timeRange"][0]}+ ${AppLocalizations.of(context).payment_screen_hours}"),
                                   Text(
                                       "${widget.parkHistory.price[index]["price"]} ₺"),
                                 ],
@@ -214,7 +215,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                    "${widget.parkHistory.price[index]["timeRange"][0]} - ${widget.parkHistory.price[index]["timeRange"][1]} hours"),
+                                    "${widget.parkHistory.price[index]["timeRange"][0]} - ${widget.parkHistory.price[index]["timeRange"][1]} ${AppLocalizations.of(context).payment_screen_hours}"),
                                 Text(
                                     "${widget.parkHistory.price[index]["price"]} ₺"),
                               ],
@@ -236,15 +237,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Density Status",
+                        AppLocalizations.of(context).payment_screen_density_status,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const Divider(),
-                      const Text(
-                          "Could you give information about the occupancy rate of the parking lot?"),
+                      Text(
+                          AppLocalizations.of(context).payment_screen_density_status_info),
                       const SizedBox(
                         height: 8,
                       ),
@@ -285,7 +286,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         },
                       ),
                       Text(
-                        "1 - Very crowded",
+                        AppLocalizations.of(context).payment_screen_very_crowded,
                         style: TextStyle(
                           color: Theme.of(context)
                               .textTheme
@@ -295,7 +296,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ),
                       ),
                       Text(
-                        "5 - Very empty",
+                        AppLocalizations.of(context).payment_screen_very_empty,
                         style: TextStyle(
                           color: Theme.of(context)
                               .textTheme
@@ -319,7 +320,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Card Details",
+                        AppLocalizations.of(context).payment_screen_card_details,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
@@ -342,7 +343,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           });
                                         }),
                                     Text(
-                                      "Pay with 3D Secure",
+                                      AppLocalizations.of(context).payment_screen_pay_with_3dsecure,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -366,7 +367,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),
                                   );
                                 },
-                                child: const Text("Choose payment method"),
+                                child: Text(AppLocalizations.of(context).payment_screen_chose_payment),
                               ),
                             ),
                     ],
@@ -384,7 +385,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Coupon Code",
+                        AppLocalizations.of(context).payment_screen_coupon_code,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
@@ -401,8 +402,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     textCapitalization:
                                         TextCapitalization.characters,
                                     autofocus: false,
-                                    decoration: const InputDecoration(
-                                      hintText: 'Coupon Code',
+                                    decoration: InputDecoration(
+                                      hintText: AppLocalizations.of(context).payment_screen_coupon_code,
                                       contentPadding: EdgeInsets.all(8),
                                       isDense: true,
                                       enabledBorder: OutlineInputBorder(
@@ -417,7 +418,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       ),
                                     ),
                                   )
-                                : Text("Coupon: ${selectedCoupon!.code}"),
+                                : Text("${AppLocalizations.of(context).payment_screen_coupon}: ${selectedCoupon!.code}"),
                           ),
                           const SizedBox(
                             width: 4,
@@ -449,9 +450,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       if(coupon.price >= price){
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                          const SnackBar(
+                                          SnackBar(
                                             content: Text(
-                                              "This coupon is not valid for this amount",
+                                              AppLocalizations.of(context).payment_screen_coupon_invalid,
                                             ),
                                             behavior: SnackBarBehavior
                                                 .floating,
@@ -463,9 +464,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         });
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                          const SnackBar(
+                                          SnackBar(
                                             content: Text(
-                                                "Coupon applied successfully"),
+                                                AppLocalizations.of(context).payment_screen_coupon_applied),
                                             behavior: SnackBarBehavior
                                                 .floating,
                                           ),
@@ -476,9 +477,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 } else {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(
-                                    const SnackBar(
+                                    SnackBar(
                                       content: Text(
-                                        "Please enter the code.",
+                                        AppLocalizations.of(context).payment_screen_please_enter_code,
                                       ),
                                       behavior:
                                       SnackBarBehavior.floating,
@@ -486,7 +487,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   );
                                 }
                               },
-                              child: const Text("Apply"),
+                              child: Text(AppLocalizations.of(context).payment_screen_apply),
                             ),
                           )
                               : Expanded(
@@ -497,7 +498,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   selectedCoupon = null;
                                 });
                               },
-                              child: const Text("Remove"),
+                              child: Text(AppLocalizations.of(context).payment_screen_remove),
                             ),
                           ),
                         ],
@@ -517,7 +518,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          "Checkout",
+                          AppLocalizations.of(context).payment_screen_checkout,
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
@@ -537,13 +538,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
-                                          "Amount: ${widget.parkHistory.totalPrice!} TL"),
+                                          "${AppLocalizations.of(context).payment_screen_amount}: ${widget.parkHistory.totalPrice!} ₺"),
                                       Text(
-                                          "${selectedCoupon!.title}: -${selectedCoupon!.price} TL"),
+                                          "${selectedCoupon!.title}: -${selectedCoupon!.price} ₺"),
                                     ],
                                   )
                                 : Container(),
-                            Text("Total Amount: $price TL"),
+                            Text("${AppLocalizations.of(context).payment_screen_total_amount}: $price ₺"),
                           ],
                         ),
                       ),
@@ -589,9 +590,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 );
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
+                                  SnackBar(
                                     content: Text(
-                                      "Something went wrong",
+                                      AppLocalizations.of(context).profile_screen_swworng,
                                     ),
                                     behavior: SnackBarBehavior.floating,
                                   ),
@@ -600,16 +601,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             });
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
+                              SnackBar(
                                 content: Text(
-                                  "Please select a card",
+                                  AppLocalizations.of(context).payment_screen_please_card,
                                 ),
                                 behavior: SnackBarBehavior.floating,
                               ),
                             );
                           }
                         },
-                        child: const Text("Pay Now"),
+                        child: Text(AppLocalizations.of(context).payment_screen_pay_now),
                       ),
                     )
                   : const CircularProgressIndicator(),

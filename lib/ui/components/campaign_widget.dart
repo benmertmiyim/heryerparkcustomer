@@ -4,6 +4,7 @@ import 'package:customer/ui/screen/main/campaign_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CampaignWidget extends StatefulWidget {
   final CampaignModel campaignModel;
@@ -48,7 +49,7 @@ class _CampaignWidgetState extends State<CampaignWidget> {
                       children: [
                         Text(widget.campaignModel.title),
                         Text(
-                          "Validation Date: ${DateFormat('dd MMMM yyyy').format(widget.campaignModel.validationDate)}",
+                            AppLocalizations.of(context).campaign_widget+DateFormat('dd MMMM yyyy').format(widget.campaignModel.validationDate),
                           ),
                       ],
                     ),

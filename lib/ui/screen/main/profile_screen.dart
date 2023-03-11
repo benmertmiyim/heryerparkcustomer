@@ -16,6 +16,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -64,20 +65,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 await authView
                                     .changeCustomerImage(file)
                                     .then((value) {
-                                  if (value != "Something went wrong") {
+                                  if (value != AppLocalizations.of(context).profile_screen_swworng) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
+                                       SnackBar(
                                         content: Text(
-                                          "Profile photo changed successfully",
+                                          AppLocalizations.of(context).profile_screen_pphotochange,
                                         ),
                                         behavior: SnackBarBehavior.floating,
                                       ),
                                     );
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
+                                       SnackBar(
                                         content: Text(
-                                          "Something went wrong",
+                                          AppLocalizations.of(context).profile_screen_swworng,
                                         ),
                                         behavior: SnackBarBehavior.floating,
                                       ),
@@ -126,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 .bodyMedium!
                         ),
                         Text(
-                          "Membership date: ${DateFormat('dd MMM yy').format(authView.customer!.createdAt!)}",
+                            "${AppLocalizations.of(context).profile_screen_memberdate} : ${DateFormat('dd MMM yy').format(authView.customer!.createdAt!)}",
                             style: TextStyle(
                                 color: theme.colorScheme.onBackground
                                     .withOpacity(0.5)),
@@ -141,58 +142,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Column(
             children: <Widget>[
               const Divider(),
-              const ProfileListTile(
-                title: "Notifications",
+              ProfileListTile(
+                title: AppLocalizations.of(context).profile_screen_notifications,
                 icon: MdiIcons.bellRingOutline,
                 onTap: NotificationScreen(),
               ),
               const Divider(),
-              const ProfileListTile(
-                title: "Payment Methods",
+              ProfileListTile(
+                title: AppLocalizations.of(context).profile_screen_payment,
                 icon: MdiIcons.creditCardOutline,
                 onTap: PaymentMethodsScreen(isFromPayment: false,),
               ),
               const Divider(),
-              const ProfileListTile(
-                title: "Park History",
+              ProfileListTile(
+                title: AppLocalizations.of(context).profile_screen_parkhistory,
                 icon: MdiIcons.history,
                 onTap: HistoryScreen(),
               ),
               const Divider(),
-              const ProfileListTile(
-                title: "Campaigns",
+              ProfileListTile(
+                title: AppLocalizations.of(context).profile_screen_campaigns,
                 icon: Icons.campaign_outlined,
                 onTap: CampaignScreen(),
               ),
               const Divider(),
-              const ProfileListTile(
-                title: "Coupon Codes",
+              ProfileListTile(
+                title: AppLocalizations.of(context).profile_screen_couponcodes,
                 icon: MdiIcons.ticketOutline,
                 onTap: CouponScreen(),
               ),
               const Divider(),
-              const ProfileListTile(
-                title: "Invite Your Friends",
+              ProfileListTile(
+                title: AppLocalizations.of(context).profile_screen_invcode,
                 icon: MdiIcons.tagOutline,
                 onTap: LoginScreen(),
-                subtitle: "Coming soon !",
+                subtitle: AppLocalizations.of(context).profile_screen_comingsoon,
               ),
               const Divider(),
-              const ProfileListTile(
-                title: "Settings",
+              ProfileListTile(
+                title: AppLocalizations.of(context).profile_screen_settings,
                 icon: Icons.settings_outlined,
                 onTap: SettingsScreen(),
-                subtitle: "Coming soon !",
+                subtitle: AppLocalizations.of(context).profile_screen_comingsoon,
               ),
               const Divider(),
-              const ProfileListTile(
-                title: "Other",
+              ProfileListTile(
+                title: AppLocalizations.of(context).profile_screen_other,
                 icon: MdiIcons.paperclip,
                 onTap: OtherScreen(),
               ),
               const Divider(),
-              const ProfileListTile(
-                title: "Support",
+              ProfileListTile(
+                title: AppLocalizations.of(context).profile_screen_sup,
                 icon: MdiIcons.faceAgent,
                 onTap: SupportChatScreen(),
               ),
@@ -225,8 +226,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            const Text(
-                              "Are you sure you want to logout?",
+                             Text(
+                              AppLocalizations.of(context).profile_screen_logoutsure,
                             ),
                             authView.authProcess == AuthProcess.idle
                                 ? Container(
@@ -240,8 +241,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             authView.signOut();
                                             Navigator.pop(context);
                                           },
-                                          child: const Text(
-                                            "Yes",
+                                          child: Text(
+                                            AppLocalizations.of(context).profile_screen_yes,
                                           ),
                                         ),
                                         const SizedBox(
@@ -251,8 +252,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           onPressed: () async {
                                             Navigator.pop(context);
                                           },
-                                          child: const Text(
-                                            "No",
+                                          child:  Text(
+                                            AppLocalizations.of(context).profile_screen_no,
                                           ),
                                         ),
                                       ],
@@ -278,7 +279,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(width: 16),
                        Expanded(
                         child: Text(
-                          "Logout",
+                          AppLocalizations.of(context).profile_screen_logout,
                           style: TextStyle(
                             color: theme.colorScheme.error,
                           ),

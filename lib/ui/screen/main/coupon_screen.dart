@@ -3,6 +3,7 @@ import 'package:customer/core/view/auth_view.dart';
 import 'package:customer/ui/components/coupon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CouponScreen extends StatefulWidget {
   const CouponScreen({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _CouponScreenState extends State<CouponScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Coupons"),
+        title: Text(AppLocalizations.of(context).profile_screen_couponcodes),
         centerTitle: true,
       ),
       body: Padding(
@@ -35,8 +36,8 @@ class _CouponScreenState extends State<CouponScreen> {
                   },
                 );
               }else{
-                return const Center(
-                  child: Text("No Coupons"),
+                return Center(
+                  child: Text(AppLocalizations.of(context).couponcodes_no),
                 );
               }
             }else{

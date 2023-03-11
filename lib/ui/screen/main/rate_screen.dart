@@ -6,6 +6,7 @@ import 'package:customer/core/view/auth_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RateScreen extends StatefulWidget {
   const RateScreen({Key? key, required this.parkHistory}) : super(key: key);
@@ -102,7 +103,7 @@ class _RateScreenState extends State<RateScreen> {
                                           Row(
                                             children: [
                                               Text(
-                                                "Security: ",
+                                                "${AppLocalizations.of(context).rate_screen_security}: ",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyMedium!,
@@ -133,7 +134,7 @@ class _RateScreenState extends State<RateScreen> {
                                           Row(
                                             children: [
                                               Text(
-                                                "Service Quality: ",
+                                                "${AppLocalizations.of(context).rate_screen_service_quality}: ",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyMedium!,
@@ -164,7 +165,7 @@ class _RateScreenState extends State<RateScreen> {
                                           Row(
                                             children: [
                                               Text(
-                                                "Accessibility: ",
+                                                "${AppLocalizations.of(context).rate_screen_accessibility}: ",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyMedium!,
@@ -200,8 +201,8 @@ class _RateScreenState extends State<RateScreen> {
 
                           }
                           else {
-                            return const Center(
-                              child: Text("No data"),
+                            return Center(
+                              child: Text(AppLocalizations.of(context).near_vendor_list_screen_no),
                             );
                           }
                         } else {
@@ -220,14 +221,14 @@ class _RateScreenState extends State<RateScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Rate",
+                        AppLocalizations.of(context).rate_screen_rate,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const Divider(),
-                      const Text("Security"),
+                      Text(AppLocalizations.of(context).rate_screen_security),
                       RatingBar.builder(
                           initialRating: security,
                           itemCount: 5,
@@ -243,8 +244,8 @@ class _RateScreenState extends State<RateScreen> {
                               security = v;
                             });
                           }),
-                      const Text(
-                        "Service Quality",
+                      Text(
+                        AppLocalizations.of(context).rate_screen_service_quality,
                       ),
                       RatingBar.builder(
                           initialRating: serviceQuality,
@@ -261,8 +262,8 @@ class _RateScreenState extends State<RateScreen> {
                               serviceQuality = v;
                             });
                           }),
-                      const Text(
-                        "Accessibility",
+                      Text(
+                        AppLocalizations.of(context).rate_screen_accessibility,
                       ),
                       RatingBar.builder(
                           initialRating: accessibility,
@@ -291,7 +292,7 @@ class _RateScreenState extends State<RateScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Comment",
+                        AppLocalizations.of(context).rate_screen_comment,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
@@ -305,8 +306,8 @@ class _RateScreenState extends State<RateScreen> {
                         maxLines: null,
                         maxLength: 250,
                         autofocus: false,
-                        decoration: const InputDecoration(
-                          hintText: 'You can comment here',
+                        decoration: InputDecoration(
+                          hintText: "${AppLocalizations.of(context).rate_screen_you_can_comment}",
                           contentPadding: EdgeInsets.all(8),
                           isDense: true,
                           enabledBorder: OutlineInputBorder(
@@ -344,9 +345,9 @@ class _RateScreenState extends State<RateScreen> {
                           value.ratePark(rateModel).then((value) {
                             if (value) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
+                                SnackBar(
                                   content: Text(
-                                    "Rate Success",
+                                    AppLocalizations.of(context).rate_screen_rate_success,
                                   ),
                                   behavior: SnackBarBehavior.floating,
                                 ),
@@ -354,9 +355,9 @@ class _RateScreenState extends State<RateScreen> {
                               Navigator.pop(context);
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
+                                SnackBar(
                                   content: Text(
-                                    "Rate Failed",
+                                    AppLocalizations.of(context).rate_screen_rate_failed,
                                   ),
                                   behavior: SnackBarBehavior.floating,
                                 ),
@@ -366,7 +367,7 @@ class _RateScreenState extends State<RateScreen> {
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green),
-                        child: const Text("Send"),
+                        child: Text(AppLocalizations.of(context).rate_screen_send),
                       ),
                     );
                   } else {

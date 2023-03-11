@@ -2,6 +2,7 @@ import 'package:customer/core/view/promotion_view.dart';
 import 'package:customer/ui/components/campaign_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CampaignScreen extends StatelessWidget {
   const CampaignScreen({Key? key}) : super(key: key);

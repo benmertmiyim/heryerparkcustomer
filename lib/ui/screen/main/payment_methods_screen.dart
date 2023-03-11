@@ -4,7 +4,7 @@ import 'package:customer/ui/components/card_widget.dart';
 import 'package:customer/ui/screen/main/add_credit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class PaymentMethodsScreen extends StatelessWidget {
   final bool isFromPayment;
 
@@ -33,7 +33,7 @@ class PaymentMethodsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Payment Methods"),
+        title: Text(AppLocalizations.of(context).profile_screen_payment),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
@@ -58,8 +58,8 @@ class PaymentMethodsScreen extends StatelessWidget {
                         return cardWidget(
                             context, authView.cards!, i, authView);
                       })
-                  : const Center(
-                      child: Text("Kart yok"),
+                  : Center(
+                      child: Text(AppLocalizations.of(context).payment_screen_no),
                     ))
               : const Center(
                   child: CircularProgressIndicator(),

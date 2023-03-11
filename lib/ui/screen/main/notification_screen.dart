@@ -2,6 +2,7 @@ import 'package:customer/core/view/notification_view.dart';
 import 'package:customer/ui/components/notification_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title:const Text("Notifications"),
+        title:Text(AppLocalizations.of(context).profile_screen_notifications),
         centerTitle: true,
       ),
       body: RefreshIndicator(
@@ -40,10 +41,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       ))
                   .toList()
               : [
-                  const Center(
+                  Center(
                     child: Padding(
                       padding: EdgeInsets.all(32),
-                      child: Text("You don't have notification",),
+                      child: Text(AppLocalizations.of(context).profile_screen_notifications_no),
                     ),
                   )
                 ],

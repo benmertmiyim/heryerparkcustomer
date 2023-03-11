@@ -6,7 +6,7 @@ import 'package:customer/core/view/auth_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AddCreditCard extends StatefulWidget {
   const AddCreditCard({Key? key}) : super(key: key);
 
@@ -89,7 +89,7 @@ class _AddCreditCardState extends State<AddCreditCard> {
                 const SizedBox(height: 16),
                 TextFormField(
                   validator: (s) {
-                    var res = CardUtils.validateCardNum(s);
+                    var res = CardUtils.validateCardNum(s,context);
                     if (res == null) {
                       cardNumber = s!;
                     }
@@ -103,7 +103,7 @@ class _AddCreditCardState extends State<AddCreditCard> {
                     CardNumberInputFormatter(),
                   ],
                   decoration: InputDecoration(
-                    hintText: "Card number",
+                    hintText: AppLocalizations.of(context).add_credit_card_number,
                     suffix: CardUtils.getCardIcon(cardType),
                     border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(
@@ -134,8 +134,8 @@ class _AddCreditCardState extends State<AddCreditCard> {
                       cardHolderName = s;
                       return null;
                     },
-                    decoration: const InputDecoration(
-                      hintText: "Card Holder Name",
+                    decoration:  InputDecoration(
+                      hintText: AppLocalizations.of(context).add_credit_card_holdername,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(8.0),
@@ -161,7 +161,7 @@ class _AddCreditCardState extends State<AddCreditCard> {
                     Expanded(
                       child: TextFormField(
                         validator: (s) {
-                          var res = CardUtils.validateCVV(s);
+                          var res = CardUtils.validateCVV(s,context);
                           if (res == null) {
                             cardCvv = s!;
                           }
@@ -238,13 +238,13 @@ class _AddCreditCardState extends State<AddCreditCard> {
                   child: TextFormField(
                       validator: (s) {
                         if (s!.isEmpty) {
-                          return "Card name cannot be empty";
+                          return (AppLocalizations.of(context).add_credit_card_empty);
                         }
                         cardName = s;
                         return null;
                       },
-                      decoration: const InputDecoration(
-                        hintText: "Card Name",
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context).add_credit_card_name,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(8.0),
@@ -283,9 +283,9 @@ class _AddCreditCardState extends State<AddCreditCard> {
                               await value.addCard(model).then((value) async {
                                 if (value is AddCardResult) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
+                                    SnackBar(
                                       content: Text(
-                                        "Card added successfully"
+                                          AppLocalizations.of(context).add_credit_card_successfully
                                       ),
                                       behavior: SnackBarBehavior.floating,
                                     ),
@@ -303,16 +303,16 @@ class _AddCreditCardState extends State<AddCreditCard> {
                                   );
                                 } else {
                                   ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                    content: Text("Something went wrong"),
+                                      .showSnackBar(SnackBar(
+                                    content: Text(AppLocalizations.of(context).profile_screen_swworng),
                                     behavior: SnackBarBehavior.floating,
                                   ));
                                 }
                               });
                             }
                           },
-                          child: const Text(
-                            "Add Card",
+                          child: Text(
+                            AppLocalizations.of(context).add_credit_card,
                           ),
                         ),
                       );
@@ -461,7 +461,7 @@ class CardUtils {
     return text.replaceAll(regExp, '');
   }
 
-  static String? validateCardNum(String? input) {
+  static String? validateCardNum(String? input,BuildContext context) {
     if (input == null || input.isEmpty) {
       return "This field is required";
     }
@@ -486,7 +486,7 @@ class CardUtils {
     return "Card is invalid";
   }
 
-  static String? validateCVV(String? value) {
+  static String? validateCVV(String? value,BuildContext context) {
     if (value == null || value.isEmpty) {
       return "This field is required";
     }

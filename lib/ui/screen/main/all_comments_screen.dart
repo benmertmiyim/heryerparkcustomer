@@ -3,7 +3,7 @@ import 'package:customer/core/view/auth_view.dart';
 import 'package:customer/ui/components/comments_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AllCommentsScreen extends StatelessWidget {
   final String vendorId;
   const AllCommentsScreen({Key? key, required this.vendorId}) : super(key: key);
@@ -56,13 +56,13 @@ class AllCommentsScreen extends StatelessWidget {
                             rateModel: rateList[i]);
                       });
                 } else {
-                  return const Center(
-                    child: Center(child: Text("No Comment")),
+                  return  Center(
+                    child: Center(child: Text(AppLocalizations.of(context).all_commend_screen_nocom)),
                   );
                 }
               } else {
-                return const Center(
-                  child: Center(child: Text("No Comment")),
+                return Center(
+                  child: Center(child: Text(AppLocalizations.of(context).all_commend_screen_nocom)),
                 );
               }
             } else {

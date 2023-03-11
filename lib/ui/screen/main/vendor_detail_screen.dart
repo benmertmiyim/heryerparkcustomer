@@ -9,6 +9,7 @@ import 'package:customer/ui/screen/main/all_comments_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VendorDetailScreen extends StatelessWidget {
   final VendorModel vendor;
@@ -86,11 +87,11 @@ class VendorDetailScreen extends StatelessWidget {
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "Density: ${calculateDensity(vendor.density)}",
+                            "${AppLocalizations.of(context).vendor_detail_screen_density}: ${calculateDensity(vendor.density,context)}",
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           Text(
-                              "Work Hours: ${vendor.openTime} - ${vendor.closeTime}"),
+                              "${AppLocalizations.of(context).vendor_detail_screen_work_hours}: ${vendor.openTime} - ${vendor.closeTime}"),
                         ],
                       ),
                       Card(
@@ -155,7 +156,7 @@ class VendorDetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Park Özellikleri",
+                      AppLocalizations.of(context).vendor_detail_screen_park_settings,
                       style: Theme.of(context).textTheme.titleMedium!,
                     ),
                     const Divider(),
@@ -168,7 +169,7 @@ class VendorDetailScreen extends StatelessWidget {
                         children: [
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Icon(
                                 Icons.car_repair,
                                 size: 32,
@@ -177,7 +178,7 @@ class VendorDetailScreen extends StatelessWidget {
                                 height: 4,
                               ),
                               Text(
-                                "Katlı Otopark",
+                                AppLocalizations.of(context).vendor_detail_screen_multi_storey_car_park,
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -322,7 +323,7 @@ class VendorDetailScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Price List",
+                            AppLocalizations.of(context).payment_screen_price_list,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           const Divider(),
@@ -339,7 +340,7 @@ class VendorDetailScreen extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                          "${vendor.price[index]["timeRange"][0]}+ hours"),
+                                          "${vendor.price[index]["timeRange"][0]}+ ${AppLocalizations.of(context).payment_screen_hours}"),
                                       Text(
                                         "${vendor.price[index]["price"]} ₺",
                                         style: Theme.of(context)
@@ -356,7 +357,7 @@ class VendorDetailScreen extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                        "${vendor.price[index]["timeRange"][0]} - ${vendor.price[index]["timeRange"][1]} hours"),
+                                        "${vendor.price[index]["timeRange"][0]} - ${vendor.price[index]["timeRange"][1]} ${AppLocalizations.of(context).payment_screen_hours}"),
                                     Text(
                                       "${vendor.price[index]["price"]} ₺",
                                       style: Theme.of(context)
@@ -383,7 +384,7 @@ class VendorDetailScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Ratings",
+                            AppLocalizations.of(context).rate_screen_rate,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           const Divider(),
@@ -399,7 +400,7 @@ class VendorDetailScreen extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "Security: ",
+                                            "${AppLocalizations.of(context).rate_screen_security}: ",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium!,
@@ -436,7 +437,7 @@ class VendorDetailScreen extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "Service Quality: ",
+                                            "${AppLocalizations.of(context).rate_screen_service_quality}: ",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium!,
@@ -473,7 +474,7 @@ class VendorDetailScreen extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "Accessibility: ",
+                                            "${AppLocalizations.of(context).rate_screen_accessibility}: ",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium!,
@@ -526,7 +527,7 @@ class VendorDetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Comments",
+                      AppLocalizations.of(context).rate_screen_comment,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const Divider(),
@@ -553,13 +554,13 @@ class VendorDetailScreen extends StatelessWidget {
                                           rateModel: rateList[i]);
                                     });
                               } else {
-                                return const Center(
-                                  child: Text("No Comment"),
+                                return Center(
+                                  child: Text(AppLocalizations.of(context).all_commend_screen_nocom),
                                 );
                               }
                             } else {
-                              return const Center(
-                                child: Text("No Comment"),
+                              return Center(
+                                child: Text(AppLocalizations.of(context).all_commend_screen_nocom),
                               );
                             }
                           } else {
@@ -581,7 +582,7 @@ class VendorDetailScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        child: const Text("Show All Comments"),
+                        child: Text(AppLocalizations.of(context).vendor_detail_screen_show_all_commends),
                       ),
                     ),
                   ],

@@ -4,6 +4,7 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CodeTimerWidget extends StatefulWidget {
   const CodeTimerWidget({
@@ -56,7 +57,7 @@ class _CodeTimerWidgetState extends State<CodeTimerWidget> {
           authView.generateCode();
         }
         return Text(
-          '${time?.min ?? ""}${time?.min != null ? ":" : ""}${time?.sec ?? 0} sec left for generate new code',
+          '${time?.min ?? ""}${time?.min != null ? ":" : ""}${time?.sec ?? 0} ${AppLocalizations.of(context).qr_screen_time}',
           style: TextStyle(
             color:
                 Theme.of(context).textTheme.titleSmall!.color!.withOpacity(0.5),

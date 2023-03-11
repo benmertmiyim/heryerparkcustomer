@@ -2,6 +2,7 @@ import 'package:customer/core/view/auth_view.dart';
 import 'package:customer/ui/components/history_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     authView = Provider.of<AuthView>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Park History"),
+        title: Text(AppLocalizations.of(context).profile_screen_parkhistory),
         centerTitle: true,
       ),
       body: RefreshIndicator(
@@ -34,11 +35,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   .map((model) => HistoryWidget(parkHistory: model,isMainScreen: false,))
                   .toList()
               : [
-                  const Center(
+                  Center(
                     child: Padding(
                       padding: EdgeInsets.all(32),
                       child: Text(
-                        "You don't have park history",
+                          AppLocalizations.of(context).history_no,
                       ),
                     ),
                   )

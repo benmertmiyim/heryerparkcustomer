@@ -1,7 +1,7 @@
 import 'package:customer/core/model/rate_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class CommentsWidget extends StatelessWidget {
   final RateModel rateModel;
 
@@ -25,7 +25,7 @@ class CommentsWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                "Security: ",
+                "${AppLocalizations.of(context).rate_screen_security}: ",
                 style: Theme.of(context).textTheme.bodyMedium!,
               ),
               Text(
@@ -45,7 +45,7 @@ class CommentsWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                "Service Quality: ",
+                "${AppLocalizations.of(context).rate_screen_service_quality}: ",
                 style: Theme.of(context).textTheme.bodyMedium!,
               ),
               Text(
@@ -65,7 +65,7 @@ class CommentsWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                "Accessibility: ",
+                "${AppLocalizations.of(context).rate_screen_accessibility}: ",
                 style: Theme.of(context).textTheme.bodyMedium!,
               ),
               Text(
@@ -83,7 +83,7 @@ class CommentsWidget extends StatelessWidget {
             ],
           ),
           Text(
-            "Comment: ${rateModel.message == "" ? "-" : rateModel.message}",
+            "${AppLocalizations.of(context).rate_screen_comment}: ${rateModel.message == "" ? "-" : rateModel.message}",
             textAlign: TextAlign.left,
             style: Theme.of(context).textTheme.bodyMedium,
           )

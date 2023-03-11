@@ -5,6 +5,7 @@ import 'package:customer/ui/screen/main/rate_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HistoryWidget extends StatelessWidget {
   final ParkHistory parkHistory;
@@ -52,7 +53,7 @@ class HistoryWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Status",
+                      AppLocalizations.of(context).status,
                       style: TextStyle(
                         color: Theme.of(context)
                             .textTheme
@@ -62,7 +63,7 @@ class HistoryWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      statusToString(parkHistory.status),
+                      statusToString(parkHistory.status,context),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -95,7 +96,7 @@ class HistoryWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Employee Name",
+                      AppLocalizations.of(context).request_screen_employee,
                       style: TextStyle(
                         color: Theme.of(context)
                             .textTheme
@@ -123,7 +124,7 @@ class HistoryWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "Total Price",
+                                AppLocalizations.of(context).payment_screen_total_price,
                                 style: TextStyle(
                                   color: Theme.of(context)
                                       .textTheme
@@ -142,7 +143,7 @@ class HistoryWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "Total Duration",
+                                AppLocalizations.of(context).payment_screen_total_duration,
                                 style: TextStyle(
                                   color: Theme.of(context)
                                       .textTheme
@@ -152,7 +153,7 @@ class HistoryWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "${parkHistory.totalMins!.toStringAsFixed(0)} Mins",
+                                "${parkHistory.totalMins!.toStringAsFixed(0)} ${AppLocalizations.of(context).payment_screen_total_mins}",
                                 style: const TextStyle(fontSize: 16),
                               ),
                             ],
@@ -182,7 +183,7 @@ class HistoryWidget extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.end,
-                            children: const [
+                            children: [
                               Icon(
                                 MdiIcons.star,
                                 size: 16,
@@ -190,7 +191,7 @@ class HistoryWidget extends StatelessWidget {
                               SizedBox(
                                 width: 4,
                               ),
-                              Text("Rate Now"),
+                              Text(AppLocalizations.of(context).rate_screen_send),
                             ],
                           ),
                         ),

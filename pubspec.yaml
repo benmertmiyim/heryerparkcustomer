@@ -61,5 +61,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - map.json
-    - mapdark.json
+    - assets/map.json
+    - assets/mapdark.json

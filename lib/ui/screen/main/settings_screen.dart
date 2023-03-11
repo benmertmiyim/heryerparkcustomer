@@ -45,16 +45,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Settings"),
+        title: Text(AppLocalizations.of(context).profile_screen_settings),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Expanded(
+              Expanded(
                 child: Text(
-                  "Show Notifications",
+                  AppLocalizations.of(context).profile_screen_notifications,
                 ),
               ),
               Switch(
@@ -72,18 +72,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           Container(
             margin: const EdgeInsets.only(top: 8),
-            child: const Text(
-              "Other",
+            child: Text(
+              AppLocalizations.of(context).profile_screen_other,
             ),
           ),
           ProfileListTile(
-            title: "Privacy And Security",
+            title: AppLocalizations.of(context).other_screen_privacysecurity,
             icon: MdiIcons.lockOutline,
             onTap: Container(),
           ),
           Divider(),
           ProfileListTile(
-            title: "About",
+            title: AppLocalizations.of(context).other_screen_about,
             icon: MdiIcons.helpCircleOutline,
             onTap: Container(),
           ),

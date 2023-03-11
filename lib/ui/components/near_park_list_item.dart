@@ -141,7 +141,7 @@ class NearParkListItem extends StatelessWidget {
                         MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            calculateDensity(vendor.density),
+                            calculateDensity(vendor.density,context),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall,

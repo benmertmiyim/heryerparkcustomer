@@ -5,6 +5,7 @@ import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PhoneVerificationScreen extends StatefulWidget {
   const PhoneVerificationScreen({Key? key}) : super(key: key);
@@ -54,13 +55,13 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const Center(
-              child: Text("Phone Verification",),
+            Center(
+              child: Text(AppLocalizations.of(context).phone_verification_screen_phone_verification,),
             ),
             Center(
               child: RichText(
                 text: TextSpan(
-                    text: "Enter the code sent to ",
+                    text: AppLocalizations.of(context).phone_verification_screen_enterthecodesent,
                     children: [
                       TextSpan(
                           text: authView.customer!.phone,),
@@ -69,7 +70,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            Text(  "CODE: ${authView.messageCode}" ),
+            Text(  "${AppLocalizations.of(context).phone_verification_screen_code}: ${authView.messageCode}" ),
             Form(
               key: formKey,
               child: Padding(
@@ -88,7 +89,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                   onChanged: (String value) {},
                   validator: (String? value) {
                     if (value!.isEmpty || value.length < 6) {
-                      return "Please enter the code";
+                      return "**";
                     } else {
                       code = value;
                       return null;
@@ -108,9 +109,9 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                     await authView.verifyCode(code).then((value){
                       if(!value){
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             content: Text(
-                              "Verification failed",
+                              AppLocalizations.of(context).phone_verification_screen_verification_failed,
                             ),
                             behavior: SnackBarBehavior.floating,
                           ),
@@ -119,8 +120,8 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                     });
                   }
                 },
-                child: const Text(
-                  "Verify",
+                child: Text(
+                  AppLocalizations.of(context).phone_verification_screen_verify,
                 ),
               ),
             ): const Center(child: CircularProgressIndicator(),),
@@ -132,8 +133,8 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        "Didn't receive the code? ",
+                      Text(
+                        AppLocalizations.of(context).phone_verification_screen_receivethecode,
                         style: TextStyle(color: Colors.black54, fontSize: 15),
                       ),
                       TextButton(
@@ -143,7 +144,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  "Code resent",
+                                  AppLocalizations.of(context).phone_verification_screen_code_resent,
                                 ),
                                 behavior: SnackBarBehavior.floating,
                               ),
@@ -151,14 +152,14 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                           });
                         },
                         child: Text(
-                          "Resend Code",
+                          AppLocalizations.of(context).phone_verification_screen_resend,
                         ),
                       ),
                     ],
                   );
                 }
                 return Text(
-                    'You can send again code in ${time.min != null ? ("${time.min}:") : ""}${time.sec} seconds');
+                    '${AppLocalizations.of(context).phone_verification_screen_you_can_send} ${time.min != null ? ("${time.min}:") : ""}${time.sec} ${AppLocalizations.of(context).phone_verification_screen_seconds}');
               },
             ),
           ],

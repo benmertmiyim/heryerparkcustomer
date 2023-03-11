@@ -7,6 +7,7 @@ import 'package:customer/ui/components/near_park_item.dart';
 import 'package:customer/ui/screen/main/near_vendor_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NearParksWidget extends StatelessWidget {
   const NearParksWidget({Key? key}) : super(key: key);
@@ -48,12 +49,12 @@ class NearParksWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: EdgeInsets.symmetric(horizontal: 8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
-                                "Near Parks",
+                              Text(
+                                AppLocalizations.of(context).near_parks_widget_parks,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
@@ -69,7 +70,7 @@ class NearParksWidget extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: const Text("See All"),
+                                child: Text(AppLocalizations.of(context).near_parks_widget_see_all),
                               ),
                             ],
                           ),
@@ -96,8 +97,8 @@ class NearParksWidget extends StatelessWidget {
                   return Container();
                 }
               } else {
-                return const Center(
-                  child: Text("No Data"),
+                return Center(
+                  child: Text(AppLocalizations.of(context).near_vendor_list_screen_no),
                 );
               }
             }));
