@@ -59,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Column(
                     children: [
                       TextFormField(
+                        key: Key("email"),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context).login_screen_enter_email;
@@ -103,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 16,
                       ),
                       TextFormField(
+                        key: Key("password"),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context).login_screen_enter_password;
@@ -136,6 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           filled: true,
 
                           prefixIcon: const Icon(
+                            key: Key("passs"),
                             MdiIcons.lockOutline,
                             size: 22,
                           ),
@@ -207,6 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
+                          key: Key("forgotPassword"),
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -225,6 +229,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 32,
                       ),
                       TextButton(
+                        key: Key("no_account"),
+
                         onPressed: () {
                           Navigator.push(
                             context,

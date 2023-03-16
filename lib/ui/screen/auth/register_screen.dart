@@ -30,6 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          //key: Key("back"),
           icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -71,6 +72,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Column(
                     children: [
                       TextFormField(
+                        key: Key("email_reg"),
+
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context).login_screen_enter_email;
@@ -118,6 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 16,
                       ),
                       TextFormField(
+                        key: Key("name_reg"),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context).login_screen_please_enter_name_surname;
@@ -160,6 +164,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 16,
                       ),
                       TextFormField(
+                          key: Key("password_reg"),
+
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context).login_screen_password_warning;
@@ -217,6 +223,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 16,
                       ),
                       TextFormField(
+                        key: Key("password2_reg"),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return AppLocalizations.of(context).login_screen_same_password;
@@ -276,6 +283,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 16,
                       ),
                       TextFormField(
+                        key: Key("phone_reg"),
                         validator: (value) {
                           if (value == null ||
                               value.isEmpty ||
@@ -327,6 +335,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
+                                key: Key("register"),
                                 onPressed: () async {
                                   if (formKey.currentState!.validate()) {
                                     phone = phone.replaceAll(" ", "");

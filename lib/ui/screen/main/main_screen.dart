@@ -12,6 +12,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -93,18 +94,22 @@ class _MainScreenState extends State<MainScreen> {
               duration: const Duration(milliseconds: 300),
               tabs: [
                 GButton(
+                  key: Key("home"),
                   icon: LineIcons.home,
                   text: AppLocalizations.of(context).bottom_nav_home,
                 ),
                 GButton(
+                  key: Key("map"),
                   icon: LineIcons.map,
                   text: AppLocalizations.of(context).bottom_nav_map,
                 ),
                 GButton(
+                  key: Key("qr"),
                   icon: LineIcons.qrcode,
                   text: AppLocalizations.of(context).bottom_nav_qr,
                 ),
                 GButton(
+                  key: Key("profile"),
                   icon: LineIcons.user,
                   text: AppLocalizations.of(context).bottom_nav_profile,
                 ),
