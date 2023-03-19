@@ -65,6 +65,7 @@ class RateWidget extends StatelessWidget {
                       ],
                     ),
                     ElevatedButton(
+                      key: Key("sentMessage"),
                       onPressed: () {
                         Navigator.push(
                           context,

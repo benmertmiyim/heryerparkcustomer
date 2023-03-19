@@ -25,6 +25,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          key: Key("back"),
+          icon: const Icon(key: Key("back"),Icons.arrow_back_ios, color: Colors.grey),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
         title:Text(AppLocalizations.of(context).profile_screen_notifications),
         centerTitle: true,
       ),

@@ -56,6 +56,8 @@ class _MainScreenState extends State<MainScreen> {
         centerTitle: true,
         actions: [
           IconButton(
+            key: Key("bell"),
+
             icon: const Icon(LineIcons.bell),
             onPressed: () {
               Navigator.push(

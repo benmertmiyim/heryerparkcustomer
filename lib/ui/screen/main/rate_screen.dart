@@ -300,6 +300,7 @@ class _RateScreenState extends State<RateScreen> {
                       ),
                       const Divider(),
                       TextField(
+                        key: Key("comment"),
                         controller: myController,
                         keyboardType: TextInputType.multiline,
                         minLines: 5,
@@ -333,6 +334,8 @@ class _RateScreenState extends State<RateScreen> {
                     return SizedBox(
                       width: double.maxFinite,
                       child: ElevatedButton(
+
+                        key: Key("rate"),
                         onPressed: () async {
                           RateModel rateModel = RateModel(
                               security: security,

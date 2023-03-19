@@ -143,36 +143,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: <Widget>[
               const Divider(),
               ProfileListTile(
+                key: Key("notifications"),
                 title: AppLocalizations.of(context).profile_screen_notifications,
                 icon: MdiIcons.bellRingOutline,
                 onTap: NotificationScreen(),
               ),
               const Divider(),
               ProfileListTile(
+                key: Key("credit"),
                 title: AppLocalizations.of(context).profile_screen_payment,
                 icon: MdiIcons.creditCardOutline,
                 onTap: PaymentMethodsScreen(isFromPayment: false,),
               ),
               const Divider(),
               ProfileListTile(
+
                 title: AppLocalizations.of(context).profile_screen_parkhistory,
                 icon: MdiIcons.history,
+                key: Key("history"),
                 onTap: HistoryScreen(),
               ),
               const Divider(),
               ProfileListTile(
+                key: Key("campaign"),
                 title: AppLocalizations.of(context).profile_screen_campaigns,
                 icon: Icons.campaign_outlined,
                 onTap: CampaignScreen(),
               ),
               const Divider(),
               ProfileListTile(
+                key: Key("coupons"),
+
                 title: AppLocalizations.of(context).profile_screen_couponcodes,
                 icon: MdiIcons.ticketOutline,
                 onTap: CouponScreen(),
               ),
               const Divider(),
               ProfileListTile(
+
                 title: AppLocalizations.of(context).profile_screen_invcode,
                 icon: MdiIcons.tagOutline,
                 onTap: LoginScreen(),
@@ -180,6 +188,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const Divider(),
               ProfileListTile(
+                key: Key("profilesettings"),
                 title: AppLocalizations.of(context).profile_screen_settings,
                 icon: Icons.settings_outlined,
                 onTap: SettingsScreen(),
@@ -187,12 +196,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const Divider(),
               ProfileListTile(
+                key: Key("other"),
                 title: AppLocalizations.of(context).profile_screen_other,
                 icon: MdiIcons.paperclip,
                 onTap: OtherScreen(),
               ),
               const Divider(),
               ProfileListTile(
+                key: Key("support"),
                 title: AppLocalizations.of(context).profile_screen_sup,
                 icon: MdiIcons.faceAgent,
                 onTap: SupportChatScreen(),

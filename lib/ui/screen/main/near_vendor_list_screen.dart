@@ -18,9 +18,13 @@ class NearVendorListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        key: Key("appbar"),
         title: Text(AppLocalizations.of(context).near_vendor_list_screen),
         actions: [
-          IconButton(onPressed: (){}, icon: const Icon(MdiIcons.filterVariant))
+          IconButton(
+              onPressed: (){}, icon: const Icon(MdiIcons.filterVariant)),
+
+
         ],
       ),
       body: FutureBuilder(
@@ -53,7 +57,7 @@ class NearVendorListScreen extends StatelessWidget {
               }
             } else {
               return Center(
-                child: Text(AppLocalizations.of(context).near_vendor_list_screen_no),
+                child: Text( AppLocalizations.of(context).near_vendor_list_screen_no),
               );
             }
           }),

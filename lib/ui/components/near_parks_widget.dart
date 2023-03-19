@@ -61,6 +61,8 @@ class NearParksWidget extends StatelessWidget {
                                 ),
                               ),
                               TextButton(
+                                key: Key("seeAll"),
+
                                 onPressed: () {
                                   Navigator.push(
                                     context,

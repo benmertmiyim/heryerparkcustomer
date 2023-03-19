@@ -31,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         leading: IconButton(
           //key: Key("back"),
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
+          icon: const Icon(key: Key("back"),Icons.arrow_back_ios, color: Colors.grey),
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.transparent,
