@@ -160,21 +160,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                 title: AppLocalizations.of(context).profile_screen_parkhistory,
                 icon: MdiIcons.history,
-                key: Key("history"),
+                subtitle: 'history',
                 onTap: HistoryScreen(),
               ),
               const Divider(),
               ProfileListTile(
-                key: Key("campaign"),
+                subtitle: 'campaign',
                 title: AppLocalizations.of(context).profile_screen_campaigns,
                 icon: Icons.campaign_outlined,
                 onTap: CampaignScreen(),
               ),
               const Divider(),
               ProfileListTile(
-                key: Key("coupons"),
+               // key: Key("coupons"),
 
                 title: AppLocalizations.of(context).profile_screen_couponcodes,
+                subtitle: 'coupons',
                 icon: MdiIcons.ticketOutline,
                 onTap: CouponScreen(),
               ),

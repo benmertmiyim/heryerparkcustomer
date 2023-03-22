@@ -14,6 +14,7 @@ class NearParkListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
+        //key: Key('clicks'),
         onTap: (){
           Navigator.push(
             context,

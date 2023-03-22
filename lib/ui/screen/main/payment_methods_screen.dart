@@ -37,6 +37,7 @@ class PaymentMethodsScreen extends StatelessWidget {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
+        key: Key("add"),
         onPressed: () {
           Navigator.push(
             context,

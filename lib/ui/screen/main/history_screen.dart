@@ -27,6 +27,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         centerTitle: true,
       ),
       body: RefreshIndicator(
+        key: Key("history2"),
         onRefresh: onRefresh,
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(),

@@ -22,6 +22,8 @@ class NearVendorListScreen extends StatelessWidget {
         title: Text(AppLocalizations.of(context).near_vendor_list_screen),
         actions: [
           IconButton(
+            key: Key('filtering'),
+
               onPressed: (){}, icon: const Icon(MdiIcons.filterVariant)),
 
 
