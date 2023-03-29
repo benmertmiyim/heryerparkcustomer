@@ -65,7 +65,7 @@ class ParkHistory {
       employeeId: json["employeeId"],
       employeeNameSurname: json["employeeNameSurname"],
       employeeImage:
-          "https://firebasestorage.googleapis.com/v0/b/heryerpark-ms.appspot.com/o/customerImage%2FeLL2oloCzcYap87ZCMHARzK0Zux2?alt=media&token=7f5cfda3-e9f4-42ee-b317-3f665730572d",
+          "https://firebasestorage.googleapis.com/v0/b/heryerpark-ms.appspot.com/o/customerImage%2Fdefault_avatar.jpeg?alt=media&token=a76a5883-df23-4f13-93b1-f45b485ad2ad",
       parkName: json["parkName"],
       paymentId: json["paymentId"] != null ? json["paymentId"] : null,
       closedReason: json["closedReason"] != null ? json["closedReason"] : null,

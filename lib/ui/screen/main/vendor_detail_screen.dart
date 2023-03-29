@@ -148,7 +148,7 @@ class VendorDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Card(
+            /**Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -309,7 +309,7 @@ class VendorDetailScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
+            ),**/
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

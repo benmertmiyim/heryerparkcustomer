@@ -83,7 +83,7 @@
 
     "payment_screen_no": "Kart Yok",
 
-    "payment_screen_employee": "Park Adı",
+    "payment_screen_employee": "Personel Adı",
 
     "payment_screen_total_price": "Toplam Fiyat",
 
@@ -165,7 +165,7 @@
 
     "vendor_detail_screen_show_all_commends": "Bütün Yorumları Göster",
 
-    "vendor_detail_screen_density": "Yoğunluk:",
+    "vendor_detail_screen_density": "Yoğunluk",
 
     "vendor_detail_screen_work_hours": "Çalışma Saatleri",
 

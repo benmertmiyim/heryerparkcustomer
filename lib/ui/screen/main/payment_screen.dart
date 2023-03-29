@@ -153,7 +153,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),
                                   ),
                                   Text(
-                                    "${widget.parkHistory.totalPrice} TL",
+                                    "${widget.parkHistory.totalPrice} ₺",
                                     style: const TextStyle(fontSize: 16),
                                   ),
                                 ],
@@ -257,12 +257,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             case 0:
                               return const Icon(
                                 MdiIcons.numeric1CircleOutline,
-                                color: Colors.red,
+                                color: Colors.green,
                               );
                             case 1:
                               return const Icon(
                                 MdiIcons.numeric2CircleOutline,
-                                color: Colors.redAccent,
+                                color: Colors.lightGreen,
                               );
                             case 2:
                               return const Icon(
@@ -272,12 +272,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             case 3:
                               return const Icon(
                                 MdiIcons.numeric4CircleOutline,
-                                color: Colors.lightGreen,
+                                color: Colors.redAccent,
                               );
                             default:
                               return const Icon(
                                 MdiIcons.numeric5CircleOutline,
-                                color: Colors.green,
+                                color: Colors.red,
                               );
                           }
                         },

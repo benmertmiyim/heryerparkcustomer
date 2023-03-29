@@ -52,13 +52,13 @@ String calculateDensity(double? density,BuildContext context) {
   if (density == null) {
     return AppLocalizations.of(context).enum_no_info;
   } else if (density >= 4) {
-    return AppLocalizations.of(context).enum_idle;
-  } else if (density >= 3) {
-    return AppLocalizations.of(context).enum_low;
-  } else if (density >= 2) {
-    return AppLocalizations.of(context).enum_medium;
-  } else if (density >= 0) {
     return AppLocalizations.of(context).enum_high;
+  } else if (density >= 3) {
+    return AppLocalizations.of(context).enum_medium;
+  } else if (density >= 2) {
+    return AppLocalizations.of(context).enum_low;
+  } else if (density >= 0) {
+    return AppLocalizations.of(context).enum_idle;
   } else {
     return AppLocalizations.of(context).enum_no_info;
   }

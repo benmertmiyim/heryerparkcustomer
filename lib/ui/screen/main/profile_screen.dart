@@ -179,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 icon: MdiIcons.ticketOutline,
                 onTap: CouponScreen(),
               ),
-              const Divider(),
+              /*const Divider(),
               ProfileListTile(
 
                 title: AppLocalizations.of(context).profile_screen_invcode,
@@ -194,7 +194,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 icon: Icons.settings_outlined,
                 onTap: SettingsScreen(),
                 subtitle: AppLocalizations.of(context).profile_screen_comingsoon,
-              ),
+              ),*/
               const Divider(),
               ProfileListTile(
                 key: Key("other"),
@@ -202,13 +202,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 icon: MdiIcons.paperclip,
                 onTap: OtherScreen(),
               ),
-              const Divider(),
+              /*const Divider(),
               ProfileListTile(
                 key: Key("support"),
                 title: AppLocalizations.of(context).profile_screen_sup,
                 icon: MdiIcons.faceAgent,
                 onTap: SupportChatScreen(),
-              ),
+              ),*/
               const Divider(),
               InkWell(
                 onTap: () {

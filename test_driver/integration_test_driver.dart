@@ -7,7 +7,7 @@ import 'package:path/path.dart';
 
 
 Future<void> main() async {
-  String? adbPath = join("/Users/ayseguleyrice/Library/Android/sdk",
+  String? adbPath = join("C:/Users/Karri/AppData/Local/Android/Sdk",
     'platform-tools',
     Platform.isWindows ? 'adb.exe' : 'adb',
   );
