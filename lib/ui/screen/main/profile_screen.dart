@@ -2,14 +2,12 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:customer/core/view/auth_view.dart';
 import 'package:customer/ui/components/profile_list_tile.dart';
-import 'package:customer/ui/screen/auth/login_screen.dart';
 import 'package:customer/ui/screen/main/campaing_screen.dart';
 import 'package:customer/ui/screen/main/coupon_screen.dart';
 import 'package:customer/ui/screen/main/history_screen.dart';
 import 'package:customer/ui/screen/main/notification_screen.dart';
 import 'package:customer/ui/screen/main/other_screen.dart';
 import 'package:customer/ui/screen/main/payment_methods_screen.dart';
-import 'package:customer/ui/screen/main/settings_screen.dart';
 import 'package:customer/ui/screen/main/support_chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -65,20 +63,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 await authView
                                     .changeCustomerImage(file)
                                     .then((value) {
-                                  if (value != AppLocalizations.of(context).profile_screen_swworng) {
+                                  if (value !=
+                                      AppLocalizations.of(context)
+                                          .profile_screen_swworng) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                       SnackBar(
+                                      SnackBar(
                                         content: Text(
-                                          AppLocalizations.of(context).profile_screen_pphotochange,
+                                          AppLocalizations.of(context)
+                                              .profile_screen_pphotochange,
                                         ),
                                         behavior: SnackBarBehavior.floating,
                                       ),
                                     );
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                       SnackBar(
+                                      SnackBar(
                                         content: Text(
-                                          AppLocalizations.of(context).profile_screen_swworng,
+                                          AppLocalizations.of(context)
+                                              .profile_screen_swworng,
                                         ),
                                         behavior: SnackBarBehavior.floating,
                                       ),
@@ -107,30 +109,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Text(authView.customer!.nameSurname,
+                            style: theme.textTheme.titleMedium!
+                                .copyWith(fontWeight: FontWeight.bold)),
+                        Text(authView.customer!.email,
+                            style: theme.textTheme.bodyMedium!),
+                        Text(authView.customer!.phone,
+                            style: theme.textTheme.bodyMedium!),
                         Text(
-                          authView.customer!.nameSurname,
-                            style: theme
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontWeight: FontWeight.bold)
-                        ),
-                        Text(
-                          authView.customer!.email,
-                            style: theme
-                                .textTheme
-                                .bodyMedium!
-                        ),
-                        Text(
-                          authView.customer!.phone,
-                            style: theme
-                                .textTheme
-                                .bodyMedium!
-                        ),
-                        Text(
-                            "${AppLocalizations.of(context).profile_screen_memberdate} : ${DateFormat('dd MMM yy').format(authView.customer!.createdAt!)}",
-                            style: TextStyle(
-                                color: theme.colorScheme.onBackground
-                                    .withOpacity(0.5)),
+                          "${AppLocalizations.of(context).profile_screen_memberdate} : ${DateFormat('dd MMM yy').format(authView.customer!.createdAt!)}",
+                          style: TextStyle(
+                              color: theme.colorScheme.onBackground
+                                  .withOpacity(0.5)),
                         ),
                       ],
                     ),
@@ -143,43 +133,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: <Widget>[
               const Divider(),
               ProfileListTile(
-                key: Key("notifications"),
-                title: AppLocalizations.of(context).profile_screen_notifications,
+                key: const Key("notifications"),
+                title:
+                    AppLocalizations.of(context).profile_screen_notifications,
                 icon: MdiIcons.bellRingOutline,
-                onTap: NotificationScreen(),
+                onTap: const NotificationScreen(),
               ),
               const Divider(),
               ProfileListTile(
-                key: Key("credit"),
+                key: const Key("credit"),
                 title: AppLocalizations.of(context).profile_screen_payment,
                 icon: MdiIcons.creditCardOutline,
-                onTap: PaymentMethodsScreen(isFromPayment: false,),
+                onTap: const PaymentMethodsScreen(
+                  isFromPayment: false,
+                ),
               ),
               const Divider(),
               ProfileListTile(
-
                 title: AppLocalizations.of(context).profile_screen_parkhistory,
                 icon: MdiIcons.history,
-                subtitle: 'history',
-                onTap: HistoryScreen(),
+                onTap: const HistoryScreen(),
               ),
               const Divider(),
               ProfileListTile(
-                subtitle: 'campaign',
                 title: AppLocalizations.of(context).profile_screen_campaigns,
                 icon: Icons.campaign_outlined,
-                onTap: CampaignScreen(),
+                onTap: const CampaignScreen(),
               ),
               const Divider(),
               ProfileListTile(
-               // key: Key("coupons"),
+                // key: Key("coupons"),
 
                 title: AppLocalizations.of(context).profile_screen_couponcodes,
-                subtitle: 'coupons',
                 icon: MdiIcons.ticketOutline,
-                onTap: CouponScreen(),
+                onTap: const CouponScreen(),
               ),
-              /*const Divider(),
+              /*
+              const Divider(),
               ProfileListTile(
 
                 title: AppLocalizations.of(context).profile_screen_invcode,
@@ -197,18 +187,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),*/
               const Divider(),
               ProfileListTile(
-                key: Key("other"),
+                key: const Key("other"),
                 title: AppLocalizations.of(context).profile_screen_other,
                 icon: MdiIcons.paperclip,
-                onTap: OtherScreen(),
+                onTap: const OtherScreen(),
               ),
-              /*const Divider(),
+              const Divider(),
               ProfileListTile(
-                key: Key("support"),
+                key: const Key("support"),
                 title: AppLocalizations.of(context).profile_screen_sup,
                 icon: MdiIcons.faceAgent,
-                onTap: SupportChatScreen(),
-              ),*/
+                onTap: const SupportChatScreen(),
+              ),
               const Divider(),
               InkWell(
                 onTap: () {
@@ -238,8 +228,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                             Text(
-                              AppLocalizations.of(context).profile_screen_logoutsure,
+                            Text(
+                              AppLocalizations.of(context)
+                                  .profile_screen_logoutsure,
                             ),
                             authView.authProcess == AuthProcess.idle
                                 ? Container(
@@ -254,7 +245,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             Navigator.pop(context);
                                           },
                                           child: Text(
-                                            AppLocalizations.of(context).profile_screen_yes,
+                                            AppLocalizations.of(context)
+                                                .profile_screen_yes,
                                           ),
                                         ),
                                         const SizedBox(
@@ -264,8 +256,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           onPressed: () async {
                                             Navigator.pop(context);
                                           },
-                                          child:  Text(
-                                            AppLocalizations.of(context).profile_screen_no,
+                                          child: Text(
+                                            AppLocalizations.of(context)
+                                                .profile_screen_no,
                                           ),
                                         ),
                                       ],
@@ -289,7 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Icon(MdiIcons.logout,
                           size: 22, color: theme.colorScheme.error),
                       const SizedBox(width: 16),
-                       Expanded(
+                      Expanded(
                         child: Text(
                           AppLocalizations.of(context).profile_screen_logout,
                           style: TextStyle(

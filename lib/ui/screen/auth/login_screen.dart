@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: "HerYer",
                             style: TextStyle(
                               fontSize: theme.textTheme.titleLarge!.fontSize,
-                                color: theme.colorScheme.onPrimary,
+                                color: theme.colorScheme.onBackground,
                                 fontStyle: FontStyle.italic),
                           ),
                           TextSpan(
